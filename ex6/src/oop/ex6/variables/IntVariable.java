@@ -11,6 +11,40 @@ public class IntVariable extends Variable {
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "int";
 	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
+	private static final String FINAL = "final ";
+	
+	/**
+	 * Returns all the variables declared in this line.
+	 * @param line - the line to be parsed.
+	 * @return - all the variables declared in this line.
+	 */
+	public static IntVariable[] getVariablesFromDec(String line){
+		int count = line.length() - line.replace(",", "").length();
+		count = count+1;
+		IntVariable[] vars = new IntVariable[count];
+		boolean fin = line.startsWith(FINAL);
+		// This is an array only to pass the int by reference.
+		int[] start_index = {TYPE.length() + 1};
+		if (fin){
+			start_index[0]+=FINAL.length();
+		}
+		for (int i=0; i<count; i++){
+			vars[i] = getVariableFromLinePart(line, start_index, fin);
+		}
+		return vars;
+	}
+	
+	/**
+	 * 
+	 * @param line - the line to get the variable from.
+	 * @param start_index - the starting index of the line from witch to start parsing.
+	 * @param fin - if the variable should be final or not.
+	 * @return The variable declared in this line starting from start_index.
+	 */
+	private static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
+		// TODO:: Make this work!!!
+		return new IntVariable(" ");
+	}
 	
 	public static boolean isIntVariableDec(String line){
 		Pattern p = Pattern.compile(DECLERATION);

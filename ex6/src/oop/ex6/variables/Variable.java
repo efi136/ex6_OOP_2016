@@ -1,5 +1,8 @@
 package oop.ex6.variables;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Variable {
 
 	protected String name;
@@ -16,6 +19,12 @@ public class Variable {
 	public static final String ASSIGNMENT_LINE = "("+BooleanVariable.ASSIGNMENT_LINE+"|"+
 			CharVariable.ASSIGNMENT_LINE+"|"+DoubleVariable.ASSIGNMENT_LINE+"|"
 			+IntVariable.ASSIGNMENT_LINE+"|"+StringVariable.ASSIGNMENT_LINE+")";
+	
+	public static boolean isVariableDec(String line){
+		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
+		Matcher m = p.matcher(line);
+		return m.matches();
+	}
 	
 	public Variable(String name){
 		this.name = name;
