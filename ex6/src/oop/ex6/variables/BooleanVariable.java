@@ -5,6 +5,7 @@ public class BooleanVariable extends Variable {
 	
 	public static final String VALUE_REGEX = "(true|false|"+DoubleVariable.VALUE_REGEX+")";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";
+	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "boolean";
 	public static final String DECLERATION = TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 

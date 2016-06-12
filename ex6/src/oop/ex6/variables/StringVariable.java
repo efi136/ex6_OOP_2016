@@ -5,6 +5,7 @@ public class StringVariable extends Variable {
 	private String value;
 	public static final String VALUE_REGEX = "\"\\w*\"";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";
+	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "String";
 	public static final String DECLERATION = TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 	public StringVariable(String name) {
