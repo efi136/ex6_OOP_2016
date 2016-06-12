@@ -1,5 +1,8 @@
 package oop.ex6.variables;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class BooleanVariable extends Variable {
 	private boolean value;
 	
@@ -9,6 +12,12 @@ public class BooleanVariable extends Variable {
 	public static final String TYPE = "boolean";
 	public static final String DECLERATION = "(final \\s*)?" +  TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 
+	public static boolean isBooleanVariableDec(String line){
+		Pattern p = Pattern.compile(DECLERATION);
+		Matcher m = p.matcher(line);
+		return m.matches();
+	}
+	
 	
 	public BooleanVariable(String name) {
 		super(name);
