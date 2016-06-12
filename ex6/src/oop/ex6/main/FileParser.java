@@ -41,7 +41,7 @@ public class FileParser {
 			if (!white_space[i]){
 				not_white_space[index] = this.commands[i];
 				// replace all space sequences with single space.
-				not_white_space[index].replaceAll(" +", " ");
+				not_white_space[index] = not_white_space[index].replaceAll(" +", " ");
 				index++;
 			}
 		}
