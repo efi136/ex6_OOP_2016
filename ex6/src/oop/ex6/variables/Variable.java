@@ -4,7 +4,7 @@ public class Variable {
 
 	protected String name;
 	protected boolean init;
-	protected static final String NAME_REGEX = "(((_)((\\w)+))|((\\w)+))";
+	public static final String NAME_REGEX = "(((_)((\\w)+))|(([a-zA-Z])(\\w*)))";
 	
 	public Variable(String name){
 		this.name = name;

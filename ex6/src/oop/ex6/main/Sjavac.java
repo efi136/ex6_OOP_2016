@@ -1,6 +1,9 @@
 package oop.ex6.main;
 
 import java.io.IOException;
+import java.util.regex.*;
+
+import oop.ex6.variables.Variable;
 
 public class Sjavac {
 
@@ -25,6 +28,9 @@ public class Sjavac {
 	
 	
 	public static void main(String[] args) {
+//		Pattern p = Pattern.compile(Variable.NAME_REGEX);
+//		Matcher m = p.matcher("a9_b");
+//		System.out.println(m.matches());
 		if (args.length == 1){
 			String filename = args[0];
 			System.out.println(validate(filename));
