@@ -28,8 +28,8 @@ public class Sjavac {
 	
 	
 	public static void main(String[] args) {
-//		Pattern p = Pattern.compile(IntVariable.DECLERATION);
-//		Matcher m = p.matcher("int btuir=478387, b = 45645;");
+//		Pattern p = Pattern.compile(Variable.VARIABLE_DECLERATION);
+//		Matcher m = p.matcher("String btuir=\"478387\", b = \"45645\";");
 //		System.out.println(m.matches());
 		if (args.length == 1){
 			String filename = args[0];
