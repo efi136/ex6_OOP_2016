@@ -1,7 +1,8 @@
 package oop.ex6.variables;
 
 public class StringVariable extends Variable {
-
+	
+	public static final String VALUE_REGEX = "\"\\w*\"";
 	private String value;
 	
 	public StringVariable(String name) {

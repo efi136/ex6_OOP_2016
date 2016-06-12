@@ -3,6 +3,8 @@ package oop.ex6.variables;
 public class CharVariable extends Variable {
 	private char value;
 	
+	public static final String VALUE_REGEX = "\'.\'";
+
 	public CharVariable(String name) {
 		super(name);
 	}

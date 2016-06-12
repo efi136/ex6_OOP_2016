@@ -3,6 +3,10 @@ package oop.ex6.main;
 import java.io.IOException;
 import java.util.regex.*;
 
+import oop.ex6.variables.CharVariable;
+import oop.ex6.variables.DoubleVariable;
+import oop.ex6.variables.IntVariable;
+import oop.ex6.variables.StringVariable;
 import oop.ex6.variables.Variable;
 
 public class Sjavac {
@@ -28,8 +32,8 @@ public class Sjavac {
 	
 	
 	public static void main(String[] args) {
-//		Pattern p = Pattern.compile(Variable.NAME_REGEX);
-//		Matcher m = p.matcher("a9_b");
+//		Pattern p = Pattern.compile(StringVariable.VALUE_REGEX);
+//		Matcher m = p.matcher("\"\"");
 //		System.out.println(m.matches());
 		if (args.length == 1){
 			String filename = args[0];
