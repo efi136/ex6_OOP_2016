@@ -26,6 +26,7 @@ public class FileParser {
 		Pattern whitespace = Pattern.compile(WHITE_SPACE_PATTERN);
 		Matcher matcher;
 		int counter = 0;
+		// find all the lines that are not whitespace.
 		for (int i=0; i<this.commands.length; i++){
 			matcher = whitespace.matcher(this.commands[i]);
 			white_space[i] = matcher.matches();
@@ -33,11 +34,14 @@ public class FileParser {
 				counter++;
 			}
 		}
+		// only keep the non whitespace lines.
 		String[] not_white_space = new String[counter];
 		int index = 0;
 		for (int i=0;i<white_space.length; i++){
 			if (!white_space[i]){
 				not_white_space[index] = this.commands[i];
+				// replace all space sequences with single space.
+				not_white_space[index].replaceAll(" +", " ");
 				index++;
 			}
 		}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.regex.*;
 
 import oop.ex6.codeBlocks.IfBlock;
+import oop.ex6.codeBlocks.MethodBlock;
 import oop.ex6.variables.*;
 
 public class Sjavac {
@@ -29,9 +30,9 @@ public class Sjavac {
 	
 	
 	public static void main(String[] args) {
-		Pattern p = Pattern.compile(IfBlock.BLOCK_START);
-		Matcher m = p.matcher("if (a||true){");
-		System.out.println(m.matches());
+//		Pattern p = Pattern.compile(MethodBlock.BLOCK_START);
+//		Matcher m = p.matcher("void func(int a, double b){");
+//		System.out.println(m.matches());
 		if (args.length == 1){
 			String filename = args[0];
 			System.out.println(validate(filename));
