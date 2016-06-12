@@ -6,7 +6,7 @@ public class DoubleVariable extends Variable {
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "double";
-	public static final String DECLERATION = TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
+	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 	public DoubleVariable(String name) {
 		super(name);
 	}
@@ -14,6 +14,12 @@ public class DoubleVariable extends Variable {
 	public DoubleVariable(String name, double value) {
 		super(name);
 		this.setValue(value);
+	}
+	
+	public DoubleVariable(String name, double value, boolean fin){
+		super(name);
+		this.setValue(value);
+		this.fin = fin;
 	}
 	
 	public void setValue(double value){

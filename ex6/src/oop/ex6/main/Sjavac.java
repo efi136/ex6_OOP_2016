@@ -3,6 +3,7 @@ package oop.ex6.main;
 import java.io.IOException;
 import java.util.regex.*;
 
+import oop.ex6.codeBlocks.IfBlock;
 import oop.ex6.variables.*;
 
 public class Sjavac {
@@ -28,9 +29,9 @@ public class Sjavac {
 	
 	
 	public static void main(String[] args) {
-//		Pattern p = Pattern.compile(Variable.VARIABLE_DECLERATION);
-//		Matcher m = p.matcher("String b=\"478387\", b = \"45645\";");
-//		System.out.println(m.matches());
+		Pattern p = Pattern.compile(IfBlock.BLOCK_START);
+		Matcher m = p.matcher("if (a||true){");
+		System.out.println(m.matches());
 		if (args.length == 1){
 			String filename = args[0];
 			System.out.println(validate(filename));

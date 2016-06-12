@@ -7,7 +7,7 @@ public class StringVariable extends Variable {
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "String";
-	public static final String DECLERATION = TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
+	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 	public StringVariable(String name) {
 		super(name);
 	}
@@ -15,6 +15,12 @@ public class StringVariable extends Variable {
 	public StringVariable(String name, String value) {
 		super(name);
 		this.setValue(value);
+	}
+	
+	public StringVariable(String name, String value, boolean fin){
+		super(name);
+		this.setValue(value);
+		this.fin = fin;
 	}
 	
 	public void setValue(String value){

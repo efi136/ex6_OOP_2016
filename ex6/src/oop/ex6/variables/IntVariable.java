@@ -7,7 +7,7 @@ public class IntVariable extends Variable {
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "int";
-	public static final String DECLERATION = TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
+	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 	
 	public IntVariable(String name) {
 		super(name);
@@ -16,6 +16,12 @@ public class IntVariable extends Variable {
 	public IntVariable(String name, int value) {
 		super(name);
 		this.setValue(value);
+	}
+	
+	public IntVariable(String name, int value, boolean fin){
+		super(name);
+		this.setValue(value);
+		this.fin = fin;
 	}
 	
 	public void setValue(int value){
