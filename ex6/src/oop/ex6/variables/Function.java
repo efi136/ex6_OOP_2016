@@ -1,5 +1,7 @@
 package oop.ex6.variables;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,13 +10,29 @@ public class Function {
 	private int num_of_parameters;
 	private String[] type_of_parameters;
 	public static final String METHOD_CALL = Variable.NAME_REGEX + "[\\s*(\\s*]"+Variable.NAME_REGEX+"\\s*(,\\s*"+Variable.NAME_REGEX+"\\s*)*[)]\\s*;";
-	private static final int START_INDEX_FOR_NAME = 5;
+	private static final int START_INDEX_FOR_NAME = 0;
 	
-	private static String get_name(String line){
+	public static String get_name(String line){
 		Pattern p = Pattern.compile(Variable.NAME_REGEX);
 		Matcher m = p.matcher(line);
 		m.find(START_INDEX_FOR_NAME);
 		return line.substring(m.start(), m.end());
+	}
+	
+	/**
+	 * Checks if this line is a leagal method call.
+	 * @param line - the line to be checked.
+	 * @param st - the symbol table.
+	 * @return true if this line is a leagal method call and false otherwise.
+	 */
+	public static boolean checkIfLineIsMethodCall(String line, SymbolTable st){
+		HashMap<String, Function> map = st.functions;
+		for (String key: map.keySet()) {
+			if (map.get(key).isLineLegalFunctionCall(line, st)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static String[] get_variable_names(String line){
@@ -38,7 +56,7 @@ public class Function {
 	}
 	
 	/**
-	 * Checks if the line is a leagal function call.
+	 * Checks if the line is a leagal function call for this function.
 	 * @param line - the line to be checked.
 	 * @param st - the symbol table.
 	 * @return true if the function call is legal and false otherwise.

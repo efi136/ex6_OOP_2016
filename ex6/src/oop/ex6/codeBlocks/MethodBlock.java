@@ -1,5 +1,8 @@
 package oop.ex6.codeBlocks;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import oop.ex6.variables.SymbolTable;
 import oop.ex6.variables.Variable;
 
@@ -8,10 +11,21 @@ public class MethodBlock extends CodeBlock {
 	public static final String VARIABLES_DEC = "((" + VARIABLE_DEC + "(,"+ VARIABLE_DEC + ")*)|"
 			+ VARIABLE_DEC + "?)";
 	public static final String BLOCK_START = "\\s*void\\s+"+Variable.NAME_REGEX+"\\s*[(]"+VARIABLES_DEC+"[)]\\s*[{]";
+	private static final int START_INDEX_FOR_NAME = 5;
 
-	public static boolean check_if_line_is_method_call(String line, SymbolTable st){
-		return true;
+	public static boolean isLineMethodDec(String line){
+		Pattern p = Pattern.compile(BLOCK_START);
+		Matcher m = p.matcher(line);
+		return m.matches();
 	}
 
+	private static String get_name(String line){
+		Pattern p = Pattern.compile(Variable.NAME_REGEX);
+		Matcher m = p.matcher(line);
+		m.find(START_INDEX_FOR_NAME);
+		return line.substring(m.start(), m.end());
+	}
+	
+	
 
 }
