@@ -15,6 +15,7 @@ import oop.ex6.variables.SymbolTable;
 import oop.ex6.variables.Variable;
 
 public class CodeBlock {
+	//Regex expressions for conditions and blocks
 	public static final String COND = "("+BooleanVariable.VALUE_REGEX+"|"+
 			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+Variable.NAME_REGEX+")";
 	public static final String COMPLEX_COND = "(\\s*" + COND + "(\\s*([&]{2}|[|]{2})\\s*" + COND + ")*)";
@@ -43,6 +44,13 @@ public class CodeBlock {
 		return variables;
 	}
 	
+	/**
+	 * A function that compiles a block.
+	 * @param parser - The file parser.
+	 * @param line - The line we're at.
+	 * @param st - SymbolTable.
+	 * @throws Ex6Exceptions - A general exception
+	 */
 	protected static void compileHelper (FileParser parser, String line, SymbolTable st) throws Ex6Exceptions{
 		if (Function.checkIfLineIsMethodCall(line, st)){
 			parser.advance();
@@ -73,6 +81,11 @@ public class CodeBlock {
 		}
 	}
 	
+	/**
+	 * Compile a file parser.
+	 * @param parser - A file parser.
+	 * @throws Ex6Exceptions - A general exception.
+	 */
 	public void compile(FileParser parser) throws Ex6Exceptions{
 		String line = parser.getCommand();
 		parser.advance();
