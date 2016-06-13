@@ -47,6 +47,51 @@ public class Variable {
 		}
 		return new Variable[0];
 	}
+
+	/**
+	 * This function checks if this line is an assingment line. of a variable.
+	 * @param line - the line to check.
+	 * @return true if this as an assignment line. false otherwise.
+	 */
+	public static boolean isAssignmentLine(String line){
+		return Pattern.matches(ASSIGNMENT_LINE, line);
+	}
+	
+	/**
+	 * 
+	 * @param line
+	 * @param st
+	 * @return
+	 */
+	public static boolean processAssignmentLine(String line, SymbolTable st){
+		String[] parts = line.split("=");
+		String name = parts[0];
+		String value = parts[1].trim();
+		value = value.substring(0, value.length()-1);
+		String value_type = getValueType(value);
+		// check if variable is in st.
+		if (st.globals.get(name)==null){
+			// TODO:: add exception.
+			// variable not defines at assignment.
+			return false;
+		}
+		Variable var = st.globals.get(name);
+		if (var.fin){
+			// TODO:: threw exception.
+			// assignment to final variable.
+			return false;
+			
+		}
+		if (value_type!= st.get_variable_type(name)){
+			if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
+				// TODO:: add exeption.
+				// wrong type addigned to var.
+				return false;
+			}
+		}
+		var.init = true;
+		return true;
+	}
 	
 	/**
 	 * This function gets a string representation of a value and returns its type.
