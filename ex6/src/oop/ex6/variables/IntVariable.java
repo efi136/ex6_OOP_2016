@@ -37,13 +37,34 @@ public class IntVariable extends Variable {
 	/**
 	 * 
 	 * @param line - the line to get the variable from.
-	 * @param start_index - the starting index of the line from witch to start parsing.
+	 * @param start_index - the starting index of the line from which to start parsing.
 	 * @param fin - if the variable should be final or not.
 	 * @return The variable declared in this line starting from start_index.
+	 * int name =4, name1=2
 	 */
-	private static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
-		// TODO:: Make this work!!!
-		return new IntVariable(" ");
+	public static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
+		Pattern pattern = Pattern.compile(ASSIGNMENT);
+		Matcher matcher = pattern.matcher(line);
+		if(matcher.find(start_index[0])){
+			start_index[0] = matcher.end();
+			String assignment = matcher.group();
+			matcher.reset(assignment);
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			matcher.find();
+			String name = matcher.group();
+			matcher.usePattern(Pattern.compile(VALUE_REGEX));
+			if(matcher.find()){
+				return new IntVariable(name, Integer.parseInt(matcher.group()), fin);
+			}
+			else{
+				if(fin){
+					//TODO: If variable is final but not initiallized
+				}
+				return new IntVariable(name);
+			}
+		}
+		return new IntVariable("");
+	
 	}
 	
 	public static boolean isIntVariableDec(String line){
