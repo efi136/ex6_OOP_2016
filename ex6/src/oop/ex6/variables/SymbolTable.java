@@ -1,10 +1,14 @@
 package oop.ex6.variables;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SymbolTable {
 
 	public static final String NOT_IN_TABLE_TYPE = "NULL";
+	public static final String TRUE = "true";
+	public static final String FALSE = "false";
 	HashMap<String, Variable> globals;
 	HashMap<String, Variable> locals;
 	HashMap<String, Function> functions;
@@ -14,6 +18,9 @@ public class SymbolTable {
 		this.globals = new HashMap<String, Variable>();
 		this.locals = new HashMap<String, Variable>();
 		this.functions = new HashMap<String, Function>();
+		// add the constunts as global variables.
+		this.globals.put(TRUE, new BooleanVariable(TRUE, true, true));
+		this.globals.put(FALSE, new BooleanVariable(FALSE, false, true));
 	}
 	
 	/**
@@ -40,6 +47,11 @@ public class SymbolTable {
 	
 	public String get_variable_type(String name){
 		Variable var;
+		Pattern p = Pattern.compile(Variable.VALUES);
+		Matcher m = p.matcher(name);
+		if (m.matches()){
+			
+		}
 		var = locals.get(name);
 		if (var !=null){
 			return var.getType();
@@ -78,6 +90,17 @@ public class SymbolTable {
 		}
 		return true;
 	}
+	
+	public boolean add_local_variables(Variable[] variables){
+		for(Variable variable : variables){
+			if(locals.containsKey(variable.getName())){
+				return false;
+			}
+			locals.put(variable.getName(), variable);
+		}
+		return true;
+	}
+	
 	
 	public boolean addGlobalFunctions(Function[] functions){
 		for(Function func : functions){

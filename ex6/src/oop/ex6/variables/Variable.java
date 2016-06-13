@@ -48,6 +48,32 @@ public class Variable {
 		return new Variable[0];
 	}
 	
+	/**
+	 * This function gets a string representation of a value and returns its type.
+	 * @param value - a string representation of a value.
+	 * @return the type of the value.
+	 */
+	public static String getValueType(String value){
+		if (Pattern.matches(BooleanVariable.VALUE_REGEX, value)){
+			return BooleanVariable.TYPE;
+		}
+		else if (Pattern.matches(CharVariable.VALUE_REGEX, value)){
+			return CharVariable.TYPE;
+		}
+		else if (Pattern.matches(DoubleVariable.VALUE_REGEX, value)){
+			return DoubleVariable.TYPE;
+		}
+		else if (Pattern.matches(IntVariable.VALUE_REGEX, value)){
+			return IntVariable.TYPE;
+		}
+		else if (Pattern.matches(StringVariable.VALUE_REGEX, value)){
+			return StringVariable.TYPE;
+		}
+		else {
+			return "Null";
+		}
+	}
+	
 	public String getType(){
 		return "";
 	}
