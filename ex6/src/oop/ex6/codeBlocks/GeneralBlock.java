@@ -11,10 +11,18 @@ public class GeneralBlock {
 
 	SymbolTable st;
 	
+	/**
+	 * a general constructor
+	 */
 	public GeneralBlock(){
 		this.st = new SymbolTable();
 	}
 	
+	/**
+	 * Proccess all the global variables in a file.
+	 * @param parser - The file parser.
+	 * @throws Ex6Exceptions - A general exception
+	 */
 	private void processGlobalVars(FileParser parser) throws Ex6Exceptions{
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
@@ -45,6 +53,11 @@ public class GeneralBlock {
 		}
 	}
 	
+	/**
+	 * Process method declerations
+	 * @param parser - The files parser.
+	 * @throws Ex6Exceptions - The general exception.
+	 */
 	private void proccessMethodDeclerations(FileParser parser) throws Ex6Exceptions{
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
