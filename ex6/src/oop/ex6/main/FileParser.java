@@ -66,6 +66,10 @@ public class FileParser {
 		return this.commands[index];
 	}
 	
+	public String getLastCommand(){
+		return this.commands[index-1];
+	}
+	
 	public void advance(){
 		this.index++;
 	}

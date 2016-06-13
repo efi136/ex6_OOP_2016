@@ -14,16 +14,13 @@ public class WhileBlock extends CodeBlock {
 	public static final String BLOCK_NAME = "while";
 	public static final String BLOCK_START = "\\s*"+BLOCK_NAME+"\\s*[(]"+COMPLEX_COND+"[)]\\s*[{]";
 	
-	private SymbolTable st;
-	
 	public WhileBlock(SymbolTable st){
 		this.st = new SymbolTable(st);
 	}
 	
 	@Override
-	public boolean compile(FileParser parser){
+	public void compile(FileParser parser){
 		
-		return true;
 		
 		//TODO:: finish this.
 	}
@@ -59,6 +56,10 @@ public class WhileBlock extends CodeBlock {
 			default:
 				cond = false;
 			}
+		}
+		if (!cond){
+			// TODO:: Throw exception.
+			// Bad type for condition.
 		}
 		return cond;
 		

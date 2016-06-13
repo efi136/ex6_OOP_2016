@@ -31,9 +31,7 @@ public class GeneralBlock {
 					}
 				}
 				else if(Variable.isAssignmentLine(command)){
-					if(!Variable.processAssignmentLine(command, st)){
-						// TODO: error bad assignment.
-					}
+					Variable.processAssignmentLine(command, st);
 				}
 			}
 		}
@@ -73,15 +71,17 @@ public class GeneralBlock {
 				parser.advance();
 				// We already delt with that when getting the global vars.
 			}
+			else if (Variable.isAssignmentLine(command)){
+				Variable.processAssignmentLine(command, this.st);
+			}
 			else if (MethodBlock.isLineMethodDec(command)){
 				MethodBlock block = new MethodBlock(this.st);
 				// compile this method.
-				if (!block.compile(parser)){
-					return false;
-				}
+				block.compile(parser);
 			}
 			else{
 				// this line should not be here. Error.
+				// TODO:: error.
 				return false;
 			}
 		}

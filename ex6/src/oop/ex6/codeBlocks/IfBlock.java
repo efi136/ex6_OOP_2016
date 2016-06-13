@@ -15,12 +15,10 @@ public class IfBlock extends CodeBlock {
 	public static final String BLOCK_NAME = "if";
 	public static final String BLOCK_START = "\\s*"+BLOCK_NAME+"\\s*[(]"+COMPLEX_COND+"[)]\\s*[{]";
 	
-	private SymbolTable st;
 	
 	public IfBlock(SymbolTable st){
 		this.st = new SymbolTable(st);
 	}
-	
 	
 	/**
 	 * This function checks if the line is a valid if statement.

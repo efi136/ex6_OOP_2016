@@ -16,9 +16,7 @@ public class MethodBlock extends CodeBlock {
 	private static final int START_INDEX_FOR_NAME = 5;
 	public static final String RETURN_STATMENT = "return;";
 	
-	
-	private SymbolTable st;
-	
+		
 	public MethodBlock(SymbolTable st){
 		this.st = new SymbolTable(st);
 		this.st.resetLocals();
@@ -38,60 +36,30 @@ public class MethodBlock extends CodeBlock {
 	}
 	
 	@Override
-	public boolean compile(FileParser parser){
+	public void compile(FileParser parser){
 		String line = parser.getCommand();
-		String func_name = getNameFromDec(line);
-		boolean canEnd = false;
 		Variable[] local_vars = Function.getVariablesFromDec(line);
 		if (!this.st.add_local_variables(local_vars)){
 			// error. More than one variable with the same name.
-			return false;
+			// TODO :: Throw exception.
 		}
 		parser.advance();
 		// now start parsing until you hit }
-		while(parser.getCommand().equals(CodeBlock.BLOCK_END)){
+		while(parser.getCommand().equals(CodeBlock.BLOCK_END) && parser.hasMoreCommands()){
+			line = parser.getCommand();
 			// try to parse all of the legal code parts.
-			// init canEnd.
-			canEnd = false;
-			if (Function.checkIfLineIsMethodCall(line, st)){
-				parser.advance();
-			}
-			else if (IfBlock.isLineLegalIfBlock(line, st)){
-				IfBlock block = new IfBlock(st);
-				if (!block.compile(parser)){
-					// TODO:: handle error.
-					return false;
-				}
-			}
-			else if (WhileBlock.isLineLegalWhileBlock(line, st)){
-				WhileBlock block = new WhileBlock(st);
-				if (!block.compile(parser)){
-					// TODO:: handle error.
-					return false;
-				}
-			}
-			else if (Variable.isAssignmentLine(line)){
-				if (!Variable.processAssignmentLine(line, st)){
-					// TODO:: throw exception here.
-					// bad assignment.
-					return false;
-				}
-				parser.advance();
-			}
-			else if (line.equals(RETURN_STATMENT)){
-				parser.advance();
-				canEnd = true;
-			}
+			compileHelper(parser, line, st);
 		}
-		if (!canEnd){
-			// No return statement.
-			// TODO:: throw exception.
-			return false;
+		if (!parser.hasMoreCommands()){
+			// TODO:: throw unexpected end of file.
+			
 		}
-		parser.advance();
-		return true;
-		
-		//TODO:: finish this.
+		// TODO:: check if the last line was return.
+		if (!parser.getLastCommand().equals(RETURN_STATMENT)){
+			// TODO:: throw error.
+			// not return statment before method ends.
+		}
+		parser.advance();		
 	}
 
 }

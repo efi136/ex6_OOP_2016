@@ -63,7 +63,7 @@ public class Variable {
 	 * @param st - the SymbolTable.
 	 * @return true if the line is legal and false otherwise.
 	 */
-	public static boolean processAssignmentLine(String line, SymbolTable st){
+	public static void processAssignmentLine(String line, SymbolTable st){
 		String[] parts = line.split("=");
 		String name = parts[0];
 		String value = parts[1].trim();
@@ -76,43 +76,36 @@ public class Variable {
 			if (var.fin){
 				// TODO:: threw exception.
 				// assignment to final variable.
-				return false;
 				
 			}
 			if (value_type!= st.get_variable_type(name)){
 				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
 					// TODO:: add exeption.
 					// wrong type addigned to var.
-					return false;
 				}
 			}
 			var.init = true;
-			return true;
 		}
 		// check for globals:
 		// check if variable is in st.
 		if (st.globals.get(name)==null){
 			// TODO:: add exception.
 			// variable not defines at assignment.
-			return false;
 		}
 		else {
 			Variable var = st.globals.get(name);
 			if (var.fin){
 				// TODO:: threw exception.
 				// assignment to final variable.
-				return false;
 				
 			}
 			if (value_type!= st.get_variable_type(name)){
 				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
 					// TODO:: add exeption.
 					// wrong type addigned to var.
-					return false;
 				}
 			}
 			var.init = true;
-			return true;
 		}
 	}
 	
