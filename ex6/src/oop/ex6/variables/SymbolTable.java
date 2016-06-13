@@ -50,7 +50,22 @@ public class SymbolTable {
 		Pattern p = Pattern.compile(Variable.VALUES);
 		Matcher m = p.matcher(name);
 		if (m.matches()){
-			// TODO: return the correct value.
+			// check order: Int, Double, Boolean, Char, String
+			if (Pattern.matches(name, IntVariable.VALUE_REGEX)){
+				return IntVariable.TYPE;
+			}
+			else if (Pattern.matches(name, DoubleVariable.VALUE_REGEX)){
+				return DoubleVariable.TYPE;
+			}
+			else if (Pattern.matches(name, BooleanVariable.VALUE_REGEX)){
+				return BooleanVariable.TYPE;
+			}
+			else if (Pattern.matches(name, CharVariable.VALUE_REGEX)){
+				return CharVariable.TYPE;
+			}
+			else if (Pattern.matches(name, StringVariable.VALUE_REGEX)){
+				return StringVariable.TYPE;
+			}
 		}
 		var = locals.get(name);
 		if (var !=null){

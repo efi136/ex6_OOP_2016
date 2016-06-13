@@ -26,7 +26,7 @@ public class CodeBlock {
 	 * @return
 	 */
 	protected static String[] getVariableNamesFromCondition(String condition){
-		String minimized = condition.substring(condition.indexOf('('), condition.indexOf(')')); //TODO: check if this includes ( and )
+		String minimized = condition.substring(condition.indexOf('('), condition.indexOf(')'));
 		Pattern p = Pattern.compile(CONDITION_VARIABLE);
 		Matcher m = p.matcher(minimized);
 		int amount = (minimized.length() - minimized.replace("||", "").replace("&&", "").length())/2;

@@ -1,12 +1,8 @@
 package oop.ex6.main;
 
 import java.io.IOException;
-import java.util.regex.*;
 
 import oop.ex6.codeBlocks.GeneralBlock;
-import oop.ex6.codeBlocks.IfBlock;
-import oop.ex6.codeBlocks.MethodBlock;
-import oop.ex6.variables.*;
 
 public class Sjavac {
 

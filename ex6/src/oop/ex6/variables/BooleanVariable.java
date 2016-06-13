@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BooleanVariable extends Variable {
+	@SuppressWarnings("unused")
 	private boolean value;
 	
 	public static final String VALUE_REGEX = "(true|false|"+DoubleVariable.VALUE_REGEX+")";

@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CharVariable extends Variable {
+	@SuppressWarnings("unused")
 	private char value;
 	
 	public static final String VALUE_REGEX = "\'.\'";

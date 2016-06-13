@@ -3,7 +3,6 @@ package oop.ex6.codeBlocks;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import oop.ex6.main.FileParser;
 import oop.ex6.variables.BooleanVariable;
 import oop.ex6.variables.DoubleVariable;
 import oop.ex6.variables.IntVariable;
@@ -18,13 +17,6 @@ public class WhileBlock extends CodeBlock {
 		this.st = new SymbolTable(st);
 	}
 	
-	@Override
-	public void compile(FileParser parser){
-		
-		
-		//TODO:: finish this.
-	}
-
 	/**
 	 * This function checks if the line is a valid while statement.
 	 * @param line - the line to be checked.

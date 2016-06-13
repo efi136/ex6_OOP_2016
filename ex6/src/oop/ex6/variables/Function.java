@@ -1,7 +1,6 @@
 package oop.ex6.variables;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -123,8 +122,12 @@ public class Function {
 		for (int i=0; i<types.length; i++){
 			if (!this.type_of_parameters[i].equals(types[i])){
 				if (!(this.type_of_parameters[i].equals(DoubleVariable.TYPE) && types[i].equals(IntVariable.TYPE))){
-					return false;
+					if (!(this.type_of_parameters[i].equals(BooleanVariable.TYPE)
+							&& (types[i].equals(IntVariable.TYPE) || types[i].equals(DoubleVariable.TYPE) ) ) ){
+						return false;
+					}
 				}
+				
 			}
 			if (!st.isInit(names[i])){
 				return false;

@@ -28,6 +28,7 @@ public class MethodBlock extends CodeBlock {
 		return m.matches();
 	}
 
+	@SuppressWarnings("unused")
 	private static String getNameFromDec(String line){
 		Pattern p = Pattern.compile(Variable.NAME_REGEX);
 		Matcher m = p.matcher(line);
@@ -54,7 +55,6 @@ public class MethodBlock extends CodeBlock {
 			// TODO:: throw unexpected end of file.
 			
 		}
-		// TODO:: check if the last line was return.
 		if (!parser.getLastCommand().equals(RETURN_STATMENT)){
 			// TODO:: throw error.
 			// not return statment before method ends.

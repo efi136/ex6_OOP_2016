@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DoubleVariable extends Variable {
+	@SuppressWarnings("unused")
 	private double value;
 	public static final String VALUE_REGEX = "-?[0-9]+(.[0-9])?[0-9]*";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";

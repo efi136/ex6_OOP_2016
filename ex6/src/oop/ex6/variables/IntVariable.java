@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public class IntVariable extends Variable {
 	
+	@SuppressWarnings("unused")
 	private int value;
 	public static final String VALUE_REGEX = "-?[0-9]+";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";

@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public class StringVariable extends Variable {
 	
+	@SuppressWarnings("unused")
 	private String value;
 	public static final String VALUE_REGEX = "\"\\w*\"";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+")?";

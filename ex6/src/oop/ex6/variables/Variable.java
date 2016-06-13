@@ -76,12 +76,15 @@ public class Variable {
 			if (var.fin){
 				// TODO:: threw exception.
 				// assignment to final variable.
-				
 			}
 			if (value_type!= st.get_variable_type(name)){
 				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
-					// TODO:: add exeption.
-					// wrong type addigned to var.
+					if (!(st.get_variable_type(name)==BooleanVariable.TYPE && 
+							(value_type.equals(IntVariable.TYPE) || value_type.equals(DoubleVariable.TYPE) ) ) ){
+						// TODO:: add exeption.
+						// wrong type addigned to var.
+					}
+					
 				}
 			}
 			var.init = true;
