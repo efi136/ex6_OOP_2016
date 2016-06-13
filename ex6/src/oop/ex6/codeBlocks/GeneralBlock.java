@@ -47,7 +47,7 @@ public class GeneralBlock {
 			}
 			if(scopeCounter == 0){
 				if(MethodBlock.isLineMethodDec(command)){
-					if(!this.st.addGlobalFunctions(Function.getFunctionFromDec(command, st))){
+					if(!this.st.addGlobalFunction(Function.getFunctionFromDec(command))){
 						//TODO: error double decleration
 					}
 				}
