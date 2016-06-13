@@ -33,6 +33,7 @@ public class Sjavac {
 //		Pattern p = Pattern.compile(MethodBlock.BLOCK_START);
 //		Matcher m = p.matcher("void func(int a, double b){");
 //		System.out.println(m.matches());
+		System.out.println(Function.get_variable_names("void ffdnjvfdjv();"));
 		if (args.length == 1){
 			String filename = args[0];
 			System.out.println(validate(filename));

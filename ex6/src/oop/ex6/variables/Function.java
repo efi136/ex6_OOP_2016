@@ -4,13 +4,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Function {
+	private String name;
 	private int num_of_parameters;
 	private String[] type_of_parameters;
 	public static final String METHOD_CALL = Variable.NAME_REGEX + "[\\s*(\\s*]"+Variable.NAME_REGEX+"\\s*(,\\s*"+Variable.NAME_REGEX+"\\s*)*[)]\\s*;";
+	private static final int START_INDEX_FOR_NAME = 5;
 	
-	private String[] get_variable_names(String line){
-		return new String[1];
-		//TODO:: finish this.
+	private static String get_name(String line){
+		Pattern p = Pattern.compile(Variable.NAME_REGEX);
+		Matcher m = p.matcher(line);
+		m.find(START_INDEX_FOR_NAME);
+		return line.substring(m.start(), m.end());
+	}
+	
+	public static String[] get_variable_names(String line){
+		int count = line.length() - line.replace(",", "").length();
+		if (line.indexOf(')') - line.indexOf('(') == 1){
+			// no variables.
+			return null;
+		}
+		String[] names = new String[count+1];
+		Pattern p = Pattern.compile(Variable.NAME_REGEX);
+		Matcher m = p.matcher(line);
+		// make sure that it starts from the variable names and not the function name.
+		m.find(START_INDEX_FOR_NAME);
+		int start_index = m.end(); 
+		for (int i=0; i<=count; i++){
+			m.find(start_index);
+			start_index = m.end();
+			names[i] = m.group();
+		}
+		return names;
 	}
 	
 	/**
@@ -26,7 +50,15 @@ public class Function {
 		if (m.matches()){
 			return false;
 		}
-		String[] names = this.get_variable_names(line);
+		String name = get_name(line);
+		if (!name.equals(this.name)){
+			return false;
+		}
+		String[] names = get_variable_names(line);
+		// in case it has no parameters.
+		if (names == null){
+			return this.num_of_parameters == 0;
+		}
 		String[] types = st.get_variables_type(names);
 		if (names.length!=this.num_of_parameters){
 			return false;
