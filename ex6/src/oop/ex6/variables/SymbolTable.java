@@ -102,13 +102,11 @@ public class SymbolTable {
 	}
 	
 	
-	public boolean addGlobalFunctions(Function[] functions){
-		for(Function func : functions){
-			if(this.functions.containsKey(func.getName())){
-				return false;
-			}
-			this.functions.put(func.getName(), func);
+	public boolean addGlobalFunction(Function func){
+		if(this.functions.containsKey(func.getName())){
+			return false;
 		}
+		this.functions.put(func.getName(), func);
 		return true;
 	}
 }

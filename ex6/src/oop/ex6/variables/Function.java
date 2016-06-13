@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Function {
 	private String name;
 	private int num_of_parameters;
-	private String[] type_of_parameters;
+	private Variable[] type_of_parameters;
 	public static final String METHOD_CALL = Variable.NAME_REGEX + "[\\s*(\\s*]"+Variable.NAME_REGEX+"\\s*(,\\s*"+Variable.NAME_REGEX+"\\s*)*[)]\\s*;";
 	private static final int START_INDEX_FOR_NAME = 0;
 	
@@ -33,6 +33,10 @@ public class Function {
 			}
 		}
 		return false;
+	}
+	
+	public static Function getFunctionFromDec(String line){
+		return new Function(line.substring(5, line.indexOf('(')), getVariablesFromDec(line));
 	}
 	
 	public static Variable[] getVariablesFromDec(String line){
@@ -132,6 +136,12 @@ public class Function {
 
 	public String getName(){
 		return this.name;
+	}
+	
+	public Function(String name, Variable[] types){
+		this.name = name;
+		this.type_of_parameters = types;
+		this.num_of_parameters = types.length;
 	}
 	
 }
