@@ -30,6 +30,11 @@ public class GeneralBlock {
 						//TODO: error double decleration
 					}
 				}
+				else if(Variable.isAssignmentLine(command)){
+					if(!Variable.processAssignmentLine(command, st)){
+						// TODO: error bad assignment.
+					}
+				}
 			}
 		}
 	}
