@@ -31,13 +31,6 @@ public class Sjavac {
 	
 	
 	public static void main(String[] args) {
-//		Pattern p = Pattern.compile(MethodBlock.BLOCK_START);
-//		Matcher m = p.matcher("void func(int a, double b){");
-//		System.out.println(m.matches());
-//		String [] array = Function.get_variable_names("ffdnjvfdjv( afjdnvnkd, b, c, d);");
-//		for (int i=0; i<array.length; i++){
-//			System.out.println(array[i]);
-//		}
 		if (args.length == 1){
 			String filename = args[0];
 			System.out.println(validate(filename));
