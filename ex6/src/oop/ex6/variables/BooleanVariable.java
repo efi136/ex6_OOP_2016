@@ -18,7 +18,7 @@ public class BooleanVariable extends Variable {
 		return m.matches();
 	}
 	
-	public static BooleanVariable[] getVariablesFromDec(String line){
+	public static BooleanVariable[] getVariablesFromDec(String line, SymbolTable st){
 		int count = line.length() - line.replace(",", "").length();
 		count = count+1;
 		BooleanVariable[] vars = new BooleanVariable[count];
@@ -29,12 +29,12 @@ public class BooleanVariable extends Variable {
 			start_index[0]+=FINAL.length();
 		}
 		for (int i=0; i<count; i++){
-			vars[i] = getVariableFromLinePart(line, start_index, fin);
+			vars[i] = getVariableFromLinePart(line, start_index, fin, st);
 		}
 		return vars;
 	}
 	
-	public static BooleanVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
+	public static BooleanVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st){
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
 		if(matcher.find(start_index[0])){
@@ -51,7 +51,17 @@ public class BooleanVariable extends Variable {
 			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
 			if(matcher.find()){
 				String secondVariableName = matcher.group();
-				//TODO: If there'se bool a = b
+				if(st.is_global_or_init(secondVariableName)){
+					if(st.get_variable_type(secondVariableName).equals(TYPE)){
+						return new BooleanVariable(name, false, fin);
+					}
+					else{
+						//TODO: Not same type
+					}
+				}
+				else {
+					//TODO: Not valid variable
+				}
 			}
 			else{
 				if(fin){

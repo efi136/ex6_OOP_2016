@@ -18,7 +18,7 @@ public class StringVariable extends Variable {
 		return m.matches();
 	}
 	
-	public static StringVariable[] getVariablesFromDec(String line){
+	public static StringVariable[] getVariablesFromDec(String line, SymbolTable st){
 		int count = line.length() - line.replace(",", "").length();
 		count = count+1;
 		StringVariable[] vars = new StringVariable[count];
@@ -29,12 +29,12 @@ public class StringVariable extends Variable {
 			start_index[0]+=FINAL.length();
 		}
 		for (int i=0; i<count; i++){
-			vars[i] = getVariableFromLinePart(line, start_index, fin);
+			vars[i] = getVariableFromLinePart(line, start_index, fin, st);
 		}
 		return vars;
 	}
 	
-	public static StringVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
+	public static StringVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st){
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
 		if(matcher.find(start_index[0])){
@@ -51,7 +51,17 @@ public class StringVariable extends Variable {
 			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
 			if(matcher.find()){
 				String secondVariableName = matcher.group();
-				//TODO: If there'se String a = b
+				if(st.is_global_or_init(secondVariableName)){
+					if(st.get_variable_type(secondVariableName).equals(TYPE)){
+						return new StringVariable(name, "", fin);
+					}
+					else{
+						//TODO: Not same type
+					}
+				}
+				else {
+					//TODO: Not valid variable
+				}
 			}
 			else{
 				if(fin){

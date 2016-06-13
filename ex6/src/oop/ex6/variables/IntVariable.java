@@ -17,7 +17,7 @@ public class IntVariable extends Variable {
 	 * @param line - the line to be parsed.
 	 * @return - all the variables declared in this line.
 	 */
-	public static IntVariable[] getVariablesFromDec(String line){
+	public static IntVariable[] getVariablesFromDec(String line, SymbolTable st){
 		int count = line.length() - line.replace(",", "").length();
 		count = count+1;
 		IntVariable[] vars = new IntVariable[count];
@@ -28,7 +28,7 @@ public class IntVariable extends Variable {
 			start_index[0]+=FINAL.length();
 		}
 		for (int i=0; i<count; i++){
-			vars[i] = getVariableFromLinePart(line, start_index, fin);
+			vars[i] = getVariableFromLinePart(line, start_index, fin, st);
 		}
 		return vars;
 	}
@@ -41,7 +41,7 @@ public class IntVariable extends Variable {
 	 * @return The variable declared in this line starting from start_index.
 	 * int name =4, name1=2
 	 */
-	public static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
+	public static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st){
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
 		if(matcher.find(start_index[0])){
@@ -58,7 +58,17 @@ public class IntVariable extends Variable {
 			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
 			if(matcher.find()){
 				String secondVariableName = matcher.group();
-				//TODO: If there'se int a = b
+				if(st.is_global_or_init(secondVariableName)){
+					if(st.get_variable_type(secondVariableName).equals(TYPE)){
+						return new IntVariable(name, 0, fin);
+					}
+					else{
+						//TODO: Not same type
+					}
+				}
+				else {
+					//TODO: Not valid variable
+				}
 			}
 			else{
 				if(fin){
