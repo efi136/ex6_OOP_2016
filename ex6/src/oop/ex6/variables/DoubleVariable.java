@@ -18,6 +18,36 @@ public class DoubleVariable extends Variable {
 		return m.matches();
 	}
 	
+	public static DoubleVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
+		Pattern pattern = Pattern.compile(ASSIGNMENT);
+		Matcher matcher = pattern.matcher(line);
+		if(matcher.find(start_index[0])){
+			start_index[0] = matcher.end();
+			String assignment = matcher.group();
+			matcher.reset(assignment);
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			matcher.find();
+			String name = matcher.group();
+			matcher.usePattern(Pattern.compile(VALUE_REGEX));
+			if(matcher.find()){
+				return new DoubleVariable(name, Double.parseDouble(matcher.group()), fin);
+			}
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			if(matcher.find()){
+				String secondVariableName = matcher.group();
+				//TODO: If there'se double a = b
+			}
+			else{
+				if(fin){
+					//TODO: If variable is final but not initiallized
+				}
+				return new DoubleVariable(name);
+			}
+		}
+		return new DoubleVariable("");
+	
+	}
+	
 	public DoubleVariable(String name) {
 		super(name);
 	}
