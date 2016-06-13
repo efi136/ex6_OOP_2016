@@ -25,6 +25,10 @@ public class SymbolTable {
 		return types;
 	}
 	
+	public void resetLocals(){
+		this.locals = new HashMap<String, Variable>();
+	}
+	
 	public String get_variable_type(String name){
 		Variable var;
 		var = locals.get(name);
@@ -54,5 +58,15 @@ public class SymbolTable {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean add_global_variables(Variable[] variables){
+		for(Variable variable : variables){
+			if(globals.containsKey(variable.getName())){
+				return false;
+			}
+			globals.put(variable.getName(), variable);
+		}
+		return true;
 	}
 }

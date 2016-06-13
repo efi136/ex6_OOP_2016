@@ -26,6 +26,25 @@ public class Variable {
 		return m.matches();
 	}
 	
+	public static Variable[] getVariablesFromDec(String line, SymbolTable st){
+		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
+		Matcher m = p.matcher(line);
+		m.find();
+		switch(m.group()){
+		case BooleanVariable.TYPE:
+			return BooleanVariable.getVariablesFromDec(line, st);
+		case IntVariable.TYPE:
+			return IntVariable.getVariablesFromDec(line, st);
+		case StringVariable.TYPE:
+			return StringVariable.getVariablesFromDec(line, st);
+		case CharVariable.TYPE:
+			return CharVariable.getVariablesFromDec(line, st);
+		case DoubleVariable.TYPE:
+			return DoubleVariable.getVariablesFromDec(line, st);
+		}
+		return new Variable[0];
+	}
+	
 	public String getType(){
 		return "";
 	}
