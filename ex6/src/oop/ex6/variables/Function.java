@@ -35,7 +35,23 @@ public class Function {
 		return false;
 	}
 	
-	public static String[] get_variable_names(String line){
+	public static Variable[] getVariablesFromDec(String line){
+		// TODO:: finish this.
+		int count = line.length() - line.replace(",", "").length();
+		if (line.indexOf(')') - line.indexOf('(') == 1){
+			// no variables.
+			return null;
+		}
+		Variable[] vars = new Variable[count+1];
+		Pattern p = Pattern.compile(Variable.NAME_REGEX);
+		Matcher m = p.matcher(line);
+		// make sure that it starts from the variable names and not the function name.
+		m.find(START_INDEX_FOR_NAME);
+		int start_index = m.end(); 
+		return vars;
+	}
+	
+	public static String[] getVariableNameFromFuncCall(String line){
 		int count = line.length() - line.replace(",", "").length();
 		if (line.indexOf(')') - line.indexOf('(') == 1){
 			// no variables.
@@ -72,7 +88,7 @@ public class Function {
 		if (!name.equals(this.name)){
 			return false;
 		}
-		String[] names = get_variable_names(line);
+		String[] names = getVariableNameFromFuncCall(line);
 		// in case it has no parameters.
 		if (names == null){
 			return this.num_of_parameters == 0;

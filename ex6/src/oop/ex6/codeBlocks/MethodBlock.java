@@ -19,7 +19,7 @@ public class MethodBlock extends CodeBlock {
 		return m.matches();
 	}
 
-	private static String get_name(String line){
+	private static String getNameFromDec(String line){
 		Pattern p = Pattern.compile(Variable.NAME_REGEX);
 		Matcher m = p.matcher(line);
 		m.find(START_INDEX_FOR_NAME);
