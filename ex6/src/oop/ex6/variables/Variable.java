@@ -58,10 +58,10 @@ public class Variable {
 	}
 	
 	/**
-	 * 
-	 * @param line
-	 * @param st
-	 * @return
+	 * This function prcesses an assignment line.
+	 * @param line - the line to be provessed.
+	 * @param st - the SymbolTable.
+	 * @return true if the line is legal and false otherwise.
 	 */
 	public static boolean processAssignmentLine(String line, SymbolTable st){
 		String[] parts = line.split("=");

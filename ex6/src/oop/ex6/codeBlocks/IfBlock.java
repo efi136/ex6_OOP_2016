@@ -57,15 +57,4 @@ public class IfBlock extends CodeBlock {
 		return cond;
 		
 	}
-	
-	@Override
-	public boolean compile(FileParser parser){
-		parser.advance();// get to the code.
-		
-		
-		return true;
-		
-		//TODO:: finish this.
-	}
-
 }

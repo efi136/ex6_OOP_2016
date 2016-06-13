@@ -14,7 +14,9 @@ public class MethodBlock extends CodeBlock {
 			+ VARIABLE_DEC + "?)";
 	public static final String BLOCK_START = "\\s*void\\s+"+Variable.NAME_REGEX+"\\s*[(]"+VARIABLES_DEC+"[)]\\s*[{]";
 	private static final int START_INDEX_FOR_NAME = 5;
-
+	public static final String RETURN_STATMENT = "return;";
+	
+	
 	private SymbolTable st;
 	
 	public MethodBlock(SymbolTable st){
@@ -39,6 +41,7 @@ public class MethodBlock extends CodeBlock {
 	public boolean compile(FileParser parser){
 		String line = parser.getCommand();
 		String func_name = getNameFromDec(line);
+		boolean canEnd = false;
 		Variable[] local_vars = Function.getVariablesFromDec(line);
 		if (!this.st.add_local_variables(local_vars)){
 			// error. More than one variable with the same name.
@@ -48,14 +51,42 @@ public class MethodBlock extends CodeBlock {
 		// now start parsing until you hit }
 		while(parser.getCommand().equals(CodeBlock.BLOCK_END)){
 			// try to parse all of the legal code parts.
+			// init canEnd.
+			canEnd = false;
 			if (Function.checkIfLineIsMethodCall(line, st)){
 				parser.advance();
 			}
 			else if (IfBlock.isLineLegalIfBlock(line, st)){
 				IfBlock block = new IfBlock(st);
-				block.compile(parser);
+				if (!block.compile(parser)){
+					// TODO:: handle error.
+					return false;
+				}
 			}
-			
+			else if (WhileBlock.isLineLegalWhileBlock(line, st)){
+				WhileBlock block = new WhileBlock(st);
+				if (!block.compile(parser)){
+					// TODO:: handle error.
+					return false;
+				}
+			}
+			else if (Variable.isAssignmentLine(line)){
+				if (!Variable.processAssignmentLine(line, st)){
+					// TODO:: throw exception here.
+					// bad assignment.
+					return false;
+				}
+				parser.advance();
+			}
+			else if (line.equals(RETURN_STATMENT)){
+				parser.advance();
+				canEnd = true;
+			}
+		}
+		if (!canEnd){
+			// No return statement.
+			// TODO:: throw exception.
+			return false;
 		}
 		parser.advance();
 		return true;
