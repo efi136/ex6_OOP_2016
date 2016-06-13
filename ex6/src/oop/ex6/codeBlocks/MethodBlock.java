@@ -13,6 +13,7 @@ import oop.ex6.variables.SymbolTable;
 import oop.ex6.variables.Variable;
 
 public class MethodBlock extends CodeBlock {
+	//Regular expressions for Declerations and blocks.
 	public static final String VARIABLE_DEC = "(\\s*(final\\s+)?" + Variable.TYPES +"\\s+"+ Variable.NAME_REGEX + "\\s*)";
 	public static final String VARIABLES_DEC = "((" + VARIABLE_DEC + "(,"+ VARIABLE_DEC + ")*)|"
 			+ VARIABLE_DEC + "?)";
@@ -20,18 +21,31 @@ public class MethodBlock extends CodeBlock {
 	private static final int START_INDEX_FOR_NAME = 5;
 	public static final String RETURN_STATMENT = "return;";
 	
-		
+	/**
+	 * A simple constructor
+	 * @param st - The symbol table.
+	 */
 	public MethodBlock(SymbolTable st){
 		this.st = new SymbolTable(st);
 		this.st.resetLocals();
 	}
 	
+	/**
+	 * Checks if a line is a method decleration.
+	 * @param line - The line.
+	 * @return True if it is else otherwise.
+	 */
 	public static boolean isLineMethodDec(String line){
 		Pattern p = Pattern.compile(BLOCK_START);
 		Matcher m = p.matcher(line);
 		return m.matches();
 	}
-
+	
+	/**
+	 * Returns the name of the method for declaration.
+	 * @param line - The line of the declaration.
+	 * @return The name of the declaration.
+	 */
 	@SuppressWarnings("unused")
 	private static String getNameFromDec(String line){
 		Pattern p = Pattern.compile(Variable.NAME_REGEX);
@@ -40,6 +54,9 @@ public class MethodBlock extends CodeBlock {
 		return line.substring(m.start(), m.end());
 	}
 	
+	/**
+	 * Compile a method block
+	 */
 	@Override
 	public void compile(FileParser parser) throws Ex6Exceptions{
 		String line = parser.getCommand();

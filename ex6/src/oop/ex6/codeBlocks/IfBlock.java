@@ -14,7 +14,10 @@ public class IfBlock extends CodeBlock {
 	public static final String BLOCK_NAME = "if";
 	public static final String BLOCK_START = "\\s*"+BLOCK_NAME+"\\s*[(]"+COMPLEX_COND+"[)]\\s*[{]";
 	
-	
+	/**
+	 * A simple constructor
+	 * @param st - The symbol table.
+	 */
 	public IfBlock(SymbolTable st){
 		this.st = new SymbolTable(st);
 	}
