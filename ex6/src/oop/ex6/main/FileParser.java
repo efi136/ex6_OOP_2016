@@ -12,6 +12,10 @@ public class FileParser {
 	private int index;
 	static String WHITE_SPACE_PATTERN = "(//)(.*)||(\\s)*";
 	
+	public void reset(){
+		this.index = 0;
+	}
+	
 	public FileParser(String filename){
 		this.filename = filename;
 	}
