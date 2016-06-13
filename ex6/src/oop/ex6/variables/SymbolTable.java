@@ -14,7 +14,16 @@ public class SymbolTable {
 		this.globals = new HashMap<String, Variable>();
 		this.locals = new HashMap<String, Variable>();
 		this.functions = new HashMap<String, Function>();
-		
+	}
+	
+	/**
+	 * Copy constructor.
+	 * @param st - the SymbolTable to copy.
+	 */
+	public SymbolTable(SymbolTable st){
+		this.globals = st.globals;
+		this.locals = st.locals;
+		this.functions = st.functions;
 	}
 
 	public String[] get_variables_type(String[] names){
@@ -47,7 +56,7 @@ public class SymbolTable {
 	 * @param name - the variable name.
 	 * @return - true if it is global or if it is initialized.
 	 */
-	public boolean is_global_or_init(String name){
+	public boolean isInit(String name){
 		Variable var;
 		var = locals.get(name);
 		if (var !=null){
@@ -55,7 +64,7 @@ public class SymbolTable {
 		}
 		var = globals.get(name);
 		if (var != null){
-			return true;
+			return var.init;
 		}
 		return false;
 	}
