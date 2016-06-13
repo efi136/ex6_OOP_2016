@@ -57,19 +57,19 @@ public class Function {
 			name = m2.group();
 			switch(type){
 			case BooleanVariable.TYPE:
-				vars[i] = new BooleanVariable(name);
+				vars[i] = new BooleanVariable(name, true, true);
 				break;
 			case IntVariable.TYPE:
-				vars[i] = new IntVariable(name);
+				vars[i] = new IntVariable(name, 0, true);
 				break;
 			case StringVariable.TYPE:
-				vars[i] = new StringVariable(name);
+				vars[i] = new StringVariable(name, "", true);
 				break;
 			case CharVariable.TYPE:
-				vars[i] = new CharVariable(name);
+				vars[i] = new CharVariable(name, 'a', true);
 				break;
 			case DoubleVariable.TYPE:
-				vars[i] = new DoubleVariable(name);
+				vars[i] = new DoubleVariable(name, 0, true);
 				break;
 			}
 		}
