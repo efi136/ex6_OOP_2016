@@ -1,5 +1,8 @@
 package oop.ex6.codeBlocks;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import oop.ex6.main.FileParser;
 import oop.ex6.variables.BooleanVariable;
 import oop.ex6.variables.DoubleVariable;
@@ -13,6 +16,7 @@ public class CodeBlock {
 			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+Variable.NAME_REGEX+")";
 	public static final String COMPLEX_COND = "(\\s*" + COND + "(\\s*([&]{2}|[|]{2})\\s*" + COND + ")*)";
 	public static final String BLOCK_END = "}";
+	public static final String CONDITION_VARIABLE = "[|]{2}|[&]{2}";
 	
 	protected SymbolTable st;
 
@@ -22,8 +26,18 @@ public class CodeBlock {
 	 * @return
 	 */
 	protected static String[] getVariableNamesFromCondition(String condition){
-		return new String[1];
-		// TODO :: do this.
+		String minimized = condition.substring(condition.indexOf('('), condition.indexOf(')')); //TODO: check if this includes ( and )
+		Pattern p = Pattern.compile(CONDITION_VARIABLE);
+		Matcher m = p.matcher(minimized);
+		int amount = (minimized.length() - minimized.replace("||", "").replace("&&", "").length())/2;
+		String[] variables = new String[amount];
+		for (int i = 0; i < amount-1; i++){
+			m.find();
+			variables[i] = minimized.substring(0, m.start()).replace(" ", "");
+			minimized = minimized.substring(m.end());
+		}
+		variables[amount-1] = minimized.replace(" ", "");
+		return variables;
 	}
 	
 	protected static void compileHelper (FileParser parser, String line, SymbolTable st){
