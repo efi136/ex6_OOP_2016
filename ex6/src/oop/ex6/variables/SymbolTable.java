@@ -69,4 +69,14 @@ public class SymbolTable {
 		}
 		return true;
 	}
+	
+	public boolean addGlobalFunctions(Function[] functions){
+		for(Function func : functions){
+			if(this.functions.containsKey(func.getName())){
+				return false;
+			}
+			this.functions.put(func.getName(), func);
+		}
+		return true;
+	}
 }

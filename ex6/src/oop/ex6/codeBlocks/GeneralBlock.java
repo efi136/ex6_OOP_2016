@@ -45,8 +45,8 @@ public class GeneralBlock {
 			}
 			if(scopeCounter == 0){
 				parser.advance();
-				if(Variable.isVariableDec(command)){
-					if(!this.st.add_global_variables(Variable.getVariablesFromDec(command, st))){
+				if(MethodBlock.isLineMethodDec(command)){
+					if(!this.st.addGlobalFunctions(Function.getFunctionsFromDec(command, st))){
 						//TODO: error double decleration
 					}
 				}

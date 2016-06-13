@@ -91,5 +91,9 @@ public class Function {
 		}
 		return true;
 	}
+
+	public String getName(){
+		return this.name;
+	}
 	
 }
