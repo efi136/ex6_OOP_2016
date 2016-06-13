@@ -9,7 +9,7 @@ public class Variable {
 	protected boolean init;
 	protected boolean fin;
 	
-	
+	public static final String FINAL = "final ";
 	public static final String NAME_REGEX = "(((_)((\\w)+))|(([a-zA-Z])(\\w*)))";
 	public static final String VARIABLE_DECLERATION = "("+BooleanVariable.DECLERATION+"|"+
 	CharVariable.DECLERATION+"|"+DoubleVariable.DECLERATION+"|"+IntVariable.DECLERATION+"|"+
@@ -24,6 +24,10 @@ public class Variable {
 		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
 		Matcher m = p.matcher(line);
 		return m.matches();
+	}
+	
+	public String getType(){
+		return "";
 	}
 	
 	public Variable(String name){

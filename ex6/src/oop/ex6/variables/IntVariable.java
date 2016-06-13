@@ -11,7 +11,6 @@ public class IntVariable extends Variable {
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*"+VALUE_REGEX+");";
 	public static final String TYPE = "int";
 	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
-	private static final String FINAL = "final ";
 	
 	/**
 	 * Returns all the variables declared in this line.
@@ -70,6 +69,10 @@ public class IntVariable extends Variable {
 		}
 		return new IntVariable("");
 	
+	}
+	
+	public String getType(){
+		return TYPE;
 	}
 	
 	public static boolean isIntVariableDec(String line){

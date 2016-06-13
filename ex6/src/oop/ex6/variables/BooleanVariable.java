@@ -18,6 +18,22 @@ public class BooleanVariable extends Variable {
 		return m.matches();
 	}
 	
+	public static BooleanVariable[] getVariablesFromDec(String line){
+		int count = line.length() - line.replace(",", "").length();
+		count = count+1;
+		BooleanVariable[] vars = new BooleanVariable[count];
+		boolean fin = line.startsWith(FINAL);
+		// This is an array only to pass the boolean by reference.
+		int[] start_index = {TYPE.length() + 1};
+		if (fin){
+			start_index[0]+=FINAL.length();
+		}
+		for (int i=0; i<count; i++){
+			vars[i] = getVariableFromLinePart(line, start_index, fin);
+		}
+		return vars;
+	}
+	
 	public static BooleanVariable getVariableFromLinePart(String line, int[] start_index, boolean fin){
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
@@ -46,6 +62,10 @@ public class BooleanVariable extends Variable {
 		}
 		return new BooleanVariable("");
 	
+	}
+	
+	public String getType(){
+		return TYPE;
 	}
 	
 	public BooleanVariable(String name) {
