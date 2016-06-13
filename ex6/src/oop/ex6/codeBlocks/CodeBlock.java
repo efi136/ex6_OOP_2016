@@ -29,10 +29,10 @@ public class CodeBlock {
 	 * @return
 	 */
 	protected static String[] getVariableNamesFromCondition(String condition){
-		String minimized = condition.substring(condition.indexOf('('), condition.indexOf(')'));
+		String minimized = condition.substring(condition.indexOf('(')+1, condition.indexOf(')'));
 		Pattern p = Pattern.compile(CONDITION_VARIABLE);
 		Matcher m = p.matcher(minimized);
-		int amount = (minimized.length() - minimized.replace("||", "").replace("&&", "").length())/2;
+		int amount = (minimized.length() - minimized.replace("||", "").replace("&&", "").length())/2 + 1 ;
 		String[] variables = new String[amount];
 		for (int i = 0; i < amount-1; i++){
 			m.find();
@@ -63,6 +63,7 @@ public class CodeBlock {
 			if(!st.add_local_variables(Variable.getVariablesFromDec(line, st))){
 				throw new DuplicateVariable(parser.getIndex());
 			}
+			parser.advance();
 		}
 		else if (line.equals(MethodBlock.RETURN_STATMENT)){
 			parser.advance();
@@ -76,7 +77,7 @@ public class CodeBlock {
 		String line = parser.getCommand();
 		parser.advance();
 		// now start parsing until you hit }
-		while(parser.getCommand().equals(CodeBlock.BLOCK_END) && parser.hasMoreCommands()){
+		while((!parser.getCommand().equals(CodeBlock.BLOCK_END)) && parser.hasMoreCommands()){
 			line = parser.getCommand();
 			// try to parse all of the legal code parts.
 			compileHelper(parser, line, st);

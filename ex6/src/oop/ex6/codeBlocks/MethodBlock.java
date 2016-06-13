@@ -44,13 +44,13 @@ public class MethodBlock extends CodeBlock {
 	public void compile(FileParser parser) throws Ex6Exceptions{
 		String line = parser.getCommand();
 		Variable[] local_vars = Function.getVariablesFromDec(line);
-		if (!this.st.add_local_variables(local_vars)){
+		if ((local_vars!=null) && !this.st.add_local_variables(local_vars)){
 			// error. More than one variable with the same name.
 			throw new UndefinedVariableUsed(local_vars[0].getName());
 		}
 		parser.advance();
 		// now start parsing until you hit }
-		while(parser.getCommand().equals(CodeBlock.BLOCK_END) && parser.hasMoreCommands()){
+		while((!parser.getCommand().equals(CodeBlock.BLOCK_END)) && parser.hasMoreCommands()){
 			line = parser.getCommand();
 			// try to parse all of the legal code parts.
 			compileHelper(parser, line, st);

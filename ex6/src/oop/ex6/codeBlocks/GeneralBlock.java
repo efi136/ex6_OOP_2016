@@ -19,14 +19,13 @@ public class GeneralBlock {
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
 			String command = parser.getCommand();
-			parser.advance();
 			if(command.contains("{")){
 				scopeCounter++;
 			}
-			if(command.contains("}")){
+			else if(command.contains("}")){
 				scopeCounter--;
 			}
-			if(scopeCounter == 0){
+			else if(scopeCounter == 0){
 				if(Variable.isVariableDec(command)){
 					if(!this.st.add_global_variables(Variable.getVariablesFromDec(command, st))){
 						throw new DuplicateVariable(parser.getIndex());
@@ -35,7 +34,14 @@ public class GeneralBlock {
 				else if(Variable.isAssignmentLine(command)){
 					Variable.processAssignmentLine(command, st);
 				}
+				else if(MethodBlock.isLineMethodDec(command)){
+					// do nothing.
+				}
+				else{
+					throw new Ex6Exceptions(parser.getIndex());
+				}
 			}
+			parser.advance();
 		}
 	}
 	
@@ -47,10 +53,10 @@ public class GeneralBlock {
 			if(command.contains("{")){
 				scopeCounter++;
 			}
-			if(command.contains("}")){
+			else if(command.contains("}")){
 				scopeCounter--;
 			}
-			if(scopeCounter == 0){
+			else if(scopeCounter == 0){
 				if(MethodBlock.isLineMethodDec(command)){
 					if(!this.st.addGlobalFunction(Function.getFunctionFromDec(command))){
 						throw new DuplicateVariable(parser.getIndex());

@@ -34,7 +34,7 @@ public class WhileBlock extends CodeBlock {
 			return false;
 		}
 		String condition;
-		condition = line.substring(6);
+		condition = line.substring(5);
 		String[] names = getVariableNamesFromCondition(condition);
 		if (!st.isInit(names)){
 			throw new UsedBeforeAssignment(names[0]);

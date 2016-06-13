@@ -35,10 +35,15 @@ public class Variable {
 	}
 	
 	public static Variable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
-		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
-		Matcher m = p.matcher(line);
-		m.find();
-		switch(m.group()){
+		String type;
+		String [] parts = line.split(" ");
+		if (parts[0].equals(FINAL) && parts.length>1){
+			type = parts[1];
+		}
+		else{
+			type = parts[0];
+		}
+		switch(type){
 		case BooleanVariable.TYPE:
 			return BooleanVariable.getVariablesFromDec(line, st);
 		case IntVariable.TYPE:

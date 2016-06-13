@@ -16,7 +16,7 @@ public class Ex6Exceptions extends Exception {
 	private static final long serialVersionUID = 1L;
 	
 	public void printErrorMsg(){
-		System.err.println(ERROR_MSG);
+		System.err.println(String.format(ERROR_MSG, line_number));
 	}
 	
 }
