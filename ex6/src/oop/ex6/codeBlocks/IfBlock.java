@@ -15,7 +15,19 @@ public class IfBlock extends CodeBlock {
 	public static final String BLOCK_NAME = "if";
 	public static final String BLOCK_START = "\\s*"+BLOCK_NAME+"\\s*[(]"+COMPLEX_COND+"[)]\\s*[{]";
 	
+	private SymbolTable st;
 	
+	public IfBlock(SymbolTable st){
+		this.st = new SymbolTable(st);
+	}
+	
+	
+	/**
+	 * This function checks if the line is a valid if statement.
+	 * @param line - the line to be checked.
+	 * @param st - the symbolTable
+	 * @return true if this line is legal and false otherwise.
+	 */
 	public static boolean isLineLegalIfBlock(String line, SymbolTable st){
 		Pattern p = Pattern.compile(BLOCK_START);
 		Matcher m = p.matcher(line);
@@ -24,14 +36,32 @@ public class IfBlock extends CodeBlock {
 		}
 		String condition;
 		condition = line.substring(3);
-		Variable[] vars = getVariableNamesFromCondition(condition);
+		String[] names = getVariableNamesFromCondition(condition);
+		if (!st.isInit(names)){
+			// TODO:: add exception here.
+			// uninitialized variable in if.
+			return false;
+		}
+		String[] types = st.get_variables_type(names);
+		boolean cond = true;
+		for (String type: types){
+			switch (type){
+			case IntVariable.TYPE:
+			case DoubleVariable.TYPE:
+			case BooleanVariable.TYPE:
+				break;
+			default:
+				cond = false;
+			}
+		}
+		return cond;
 		
 	}
 	
-	
-	
 	@Override
 	public boolean compile(FileParser parser){
+		parser.advance();// get to the code.
+		
 		
 		return true;
 		

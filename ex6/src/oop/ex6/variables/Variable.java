@@ -69,28 +69,51 @@ public class Variable {
 		String value = parts[1].trim();
 		value = value.substring(0, value.length()-1);
 		String value_type = getValueType(value);
+		// check for locals:
+		// check if variable is in st.
+		if (st.locals.get(name)!=null){
+			Variable var = st.locals.get(name);
+			if (var.fin){
+				// TODO:: threw exception.
+				// assignment to final variable.
+				return false;
+				
+			}
+			if (value_type!= st.get_variable_type(name)){
+				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
+					// TODO:: add exeption.
+					// wrong type addigned to var.
+					return false;
+				}
+			}
+			var.init = true;
+			return true;
+		}
+		// check for globals:
 		// check if variable is in st.
 		if (st.globals.get(name)==null){
 			// TODO:: add exception.
 			// variable not defines at assignment.
 			return false;
 		}
-		Variable var = st.globals.get(name);
-		if (var.fin){
-			// TODO:: threw exception.
-			// assignment to final variable.
-			return false;
-			
-		}
-		if (value_type!= st.get_variable_type(name)){
-			if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
-				// TODO:: add exeption.
-				// wrong type addigned to var.
+		else {
+			Variable var = st.globals.get(name);
+			if (var.fin){
+				// TODO:: threw exception.
+				// assignment to final variable.
 				return false;
+				
 			}
+			if (value_type!= st.get_variable_type(name)){
+				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
+					// TODO:: add exeption.
+					// wrong type addigned to var.
+					return false;
+				}
+			}
+			var.init = true;
+			return true;
 		}
-		var.init = true;
-		return true;
 	}
 	
 	/**

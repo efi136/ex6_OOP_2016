@@ -40,7 +40,6 @@ public class Function {
 	}
 	
 	public static Variable[] getVariablesFromDec(String line){
-		// TODO:: finish this.
 		int count = line.length() - line.replace(",", "").length();
 		if (line.indexOf(')') - line.indexOf('(') == 1){
 			// no variables.
@@ -102,7 +101,6 @@ public class Function {
 	 * @return true if the function call is legal and false otherwise.
 	 */
 	public boolean isLineLegalFunctionCall(String line, SymbolTable st){
-		//TODO: finish this.
 		Pattern p = Pattern.compile(METHOD_CALL);
 		Matcher m = p.matcher(line);
 		if (m.matches()){
@@ -121,6 +119,7 @@ public class Function {
 		if (names.length!=this.num_of_parameters){
 			return false;
 		}
+		// check if the types are olay.
 		for (int i=0; i<types.length; i++){
 			if (!this.type_of_parameters[i].equals(types[i])){
 				if (!(this.type_of_parameters[i].equals(DoubleVariable.TYPE) && types[i].equals(IntVariable.TYPE))){

@@ -51,9 +51,11 @@ public class MethodBlock extends CodeBlock {
 			if (Function.checkIfLineIsMethodCall(line, st)){
 				parser.advance();
 			}
-			else if (){
-				
+			else if (IfBlock.isLineLegalIfBlock(line, st)){
+				IfBlock block = new IfBlock(st);
+				block.compile(parser);
 			}
+			
 		}
 		parser.advance();
 		return true;

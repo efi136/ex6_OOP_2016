@@ -50,7 +50,7 @@ public class SymbolTable {
 		Pattern p = Pattern.compile(Variable.VALUES);
 		Matcher m = p.matcher(name);
 		if (m.matches()){
-			
+			// TODO: return the correct value.
 		}
 		var = locals.get(name);
 		if (var !=null){
@@ -69,8 +69,12 @@ public class SymbolTable {
 	 * @return - true if it is global or if it is initialized.
 	 */
 	public boolean isInit(String name){
-		Variable var;
-		var = locals.get(name);
+		Pattern p = Pattern.compile(Variable.VALUES);
+		Matcher m = p.matcher(name);
+		if (m.matches()){
+			return true;
+		}
+		Variable var = locals.get(name);
 		if (var !=null){
 			return var.init;
 		}
