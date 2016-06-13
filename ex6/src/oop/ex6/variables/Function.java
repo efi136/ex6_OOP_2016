@@ -101,7 +101,7 @@ public class Function {
 			if (!this.type_of_parameters[i].equals(types[i])){
 				return false;
 			}
-			if (!st.is_global_or_init(names[i])){
+			if (!st.isInit(names[i])){
 				return false;
 			}
 		}

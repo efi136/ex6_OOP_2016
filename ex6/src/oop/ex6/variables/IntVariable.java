@@ -58,7 +58,7 @@ public class IntVariable extends Variable {
 			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
 			if(matcher.find()){
 				String secondVariableName = matcher.group();
-				if(st.is_global_or_init(secondVariableName)){
+				if(st.isInit(secondVariableName)){
 					if(st.get_variable_type(secondVariableName).equals(TYPE)){
 						return new IntVariable(name, 0, fin);
 					}

@@ -10,7 +10,7 @@ public class FileParser {
 	private String filename;
 	private String[] commands;
 	private int index;
-	static String WHITE_SPACE_PATTERN = "(//)(.*)||(\\s)*";
+	static String WHITE_SPACE_PATTERN = "\\s*(//)(.*)||(\\s)*";
 	
 	public void reset(){
 		this.index = 0;

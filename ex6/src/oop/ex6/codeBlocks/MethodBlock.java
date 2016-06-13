@@ -3,6 +3,7 @@ package oop.ex6.codeBlocks;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.main.FileParser;
 import oop.ex6.variables.SymbolTable;
 import oop.ex6.variables.Variable;
 
@@ -13,6 +14,13 @@ public class MethodBlock extends CodeBlock {
 	public static final String BLOCK_START = "\\s*void\\s+"+Variable.NAME_REGEX+"\\s*[(]"+VARIABLES_DEC+"[)]\\s*[{]";
 	private static final int START_INDEX_FOR_NAME = 5;
 
+	private SymbolTable st;
+	
+	public MethodBlock(SymbolTable st){
+		this.st = new SymbolTable(st);
+		this.st.resetLocals();
+	}
+	
 	public static boolean isLineMethodDec(String line){
 		Pattern p = Pattern.compile(BLOCK_START);
 		Matcher m = p.matcher(line);
@@ -26,6 +34,9 @@ public class MethodBlock extends CodeBlock {
 		return line.substring(m.start(), m.end());
 	}
 	
-	
+	public boolean compile(FileParser parser){
+		return true;
+		//TODO:: finish this.
+	}
 
 }
