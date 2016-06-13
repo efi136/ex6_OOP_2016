@@ -43,11 +43,31 @@ public class Function {
 			return null;
 		}
 		Variable[] vars = new Variable[count+1];
-		Pattern p = Pattern.compile(Variable.NAME_REGEX);
+		Pattern p = Pattern.compile(Variable.METHOD_DECLERATION);
 		Matcher m = p.matcher(line);
+		Matcher m2;
+		String type, name;
 		// make sure that it starts from the variable names and not the function name.
-		m.find(START_INDEX_FOR_NAME);
-		int start_index = m.end(); 
+		for(int i = 0; i < count; i++){
+			m.find(line.indexOf('('));
+			m2 = Pattern.compile(Variable.NAME_REGEX).matcher(m.group());
+			m2.find();
+			type = m2.group();
+			m2.find();
+			name = m2.group();
+			switch(type){
+			case BooleanVariable.TYPE:
+				vars[i] = new BooleanVariable(name);
+			case IntVariable.TYPE:
+				vars[i] = new IntVariable(name);
+			case StringVariable.TYPE:
+				vars[i] = new StringVariable(name);
+			case CharVariable.TYPE:
+				vars[i] = new CharVariable(name);
+			case DoubleVariable.TYPE:
+				vars[i] = new DoubleVariable(name);
+			}
+		}
 		return vars;
 	}
 	

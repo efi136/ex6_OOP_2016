@@ -19,6 +19,9 @@ public class Variable {
 	public static final String ASSIGNMENT_LINE = "("+BooleanVariable.ASSIGNMENT_LINE+"|"+
 			CharVariable.ASSIGNMENT_LINE+"|"+DoubleVariable.ASSIGNMENT_LINE+"|"
 			+IntVariable.ASSIGNMENT_LINE+"|"+StringVariable.ASSIGNMENT_LINE+")";
+	public static final String VALUES = "("+BooleanVariable.VALUE_REGEX+"|"+CharVariable.VALUE_REGEX+"|"+
+			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+StringVariable.VALUE_REGEX+")";
+	public static final String METHOD_DECLERATION = "("+TYPES+" "+NAME_REGEX+")";
 	
 	public static boolean isVariableDec(String line){
 		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
