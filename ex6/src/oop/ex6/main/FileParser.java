@@ -77,4 +77,8 @@ public class FileParser {
 	public boolean hasMoreCommands(){
 		return this.commands.length>this.index;
 	}
+
+	public int getIndex() {
+		return this.index;
+	}
 }

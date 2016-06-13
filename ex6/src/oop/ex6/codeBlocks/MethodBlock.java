@@ -3,6 +3,10 @@ package oop.ex6.codeBlocks;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.Exceptions.Ex6Exceptions;
+import oop.ex6.Exceptions.NoReturn;
+import oop.ex6.Exceptions.UnExpectedEndOfFile;
+import oop.ex6.Exceptions.UndefinedVariableUsed;
 import oop.ex6.main.FileParser;
 import oop.ex6.variables.Function;
 import oop.ex6.variables.SymbolTable;
@@ -37,12 +41,12 @@ public class MethodBlock extends CodeBlock {
 	}
 	
 	@Override
-	public void compile(FileParser parser){
+	public void compile(FileParser parser) throws Ex6Exceptions{
 		String line = parser.getCommand();
 		Variable[] local_vars = Function.getVariablesFromDec(line);
 		if (!this.st.add_local_variables(local_vars)){
 			// error. More than one variable with the same name.
-			// TODO :: Throw exception.
+			throw new UndefinedVariableUsed(local_vars[0].getName());
 		}
 		parser.advance();
 		// now start parsing until you hit }
@@ -52,12 +56,12 @@ public class MethodBlock extends CodeBlock {
 			compileHelper(parser, line, st);
 		}
 		if (!parser.hasMoreCommands()){
-			// TODO:: throw unexpected end of file.
+			throw new UnExpectedEndOfFile(parser.getIndex());
 			
 		}
 		if (!parser.getLastCommand().equals(RETURN_STATMENT)){
-			// TODO:: throw error.
-			// not return statment before method ends.
+			// no return statment before method ends.
+			throw new NoReturn(parser.getIndex());
 		}
 		parser.advance();		
 	}

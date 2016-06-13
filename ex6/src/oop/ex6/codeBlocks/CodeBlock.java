@@ -3,6 +3,9 @@ package oop.ex6.codeBlocks;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.Exceptions.DuplicateVariable;
+import oop.ex6.Exceptions.Ex6Exceptions;
+import oop.ex6.Exceptions.UnExpectedEndOfFile;
 import oop.ex6.main.FileParser;
 import oop.ex6.variables.BooleanVariable;
 import oop.ex6.variables.DoubleVariable;
@@ -40,7 +43,7 @@ public class CodeBlock {
 		return variables;
 	}
 	
-	protected static void compileHelper (FileParser parser, String line, SymbolTable st){
+	protected static void compileHelper (FileParser parser, String line, SymbolTable st) throws Ex6Exceptions{
 		if (Function.checkIfLineIsMethodCall(line, st)){
 			parser.advance();
 		}
@@ -58,15 +61,18 @@ public class CodeBlock {
 		}
 		else if(Variable.isVariableDec(line)){
 			if(!st.add_local_variables(Variable.getVariablesFromDec(line, st))){
-				//TODO: error double decleration
+				throw new DuplicateVariable(parser.getIndex());
 			}
 		}
 		else if (line.equals(MethodBlock.RETURN_STATMENT)){
 			parser.advance();
 		}
+		else {
+			throw new Ex6Exceptions(parser.getIndex());
+		}
 	}
 	
-	public void compile(FileParser parser){
+	public void compile(FileParser parser) throws Ex6Exceptions{
 		String line = parser.getCommand();
 		parser.advance();
 		// now start parsing until you hit }
@@ -76,8 +82,7 @@ public class CodeBlock {
 			compileHelper(parser, line, st);
 		}
 		if (!parser.hasMoreCommands()){
-			// TODO:: throw unexpected end of file.
-			
+			throw new UnExpectedEndOfFile(parser.getIndex());
 		}
 		parser.advance();
 	}

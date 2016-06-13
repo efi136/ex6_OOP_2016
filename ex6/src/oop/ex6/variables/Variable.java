@@ -3,6 +3,11 @@ package oop.ex6.variables;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.Exceptions.Ex6Exceptions;
+import oop.ex6.Exceptions.FinalVariableAssignment;
+import oop.ex6.Exceptions.IncompatibleType;
+import oop.ex6.Exceptions.UndefinedVariableUsed;
+
 public class Variable {
 
 	protected String name;
@@ -29,7 +34,7 @@ public class Variable {
 		return m.matches();
 	}
 	
-	public static Variable[] getVariablesFromDec(String line, SymbolTable st){
+	public static Variable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
 		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
 		Matcher m = p.matcher(line);
 		m.find();
@@ -62,8 +67,9 @@ public class Variable {
 	 * @param line - the line to be provessed.
 	 * @param st - the SymbolTable.
 	 * @return true if the line is legal and false otherwise.
+	 * @throws Ex6Exceptions 
 	 */
-	public static void processAssignmentLine(String line, SymbolTable st){
+	public static void processAssignmentLine(String line, SymbolTable st) throws Ex6Exceptions{
 		String[] parts = line.split("=");
 		String name = parts[0];
 		String value = parts[1].trim();
@@ -74,17 +80,16 @@ public class Variable {
 		if (st.locals.get(name)!=null){
 			Variable var = st.locals.get(name);
 			if (var.fin){
-				// TODO:: threw exception.
+				throw new FinalVariableAssignment(name);
 				// assignment to final variable.
 			}
 			if (value_type!= st.get_variable_type(name)){
 				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
 					if (!(st.get_variable_type(name)==BooleanVariable.TYPE && 
 							(value_type.equals(IntVariable.TYPE) || value_type.equals(DoubleVariable.TYPE) ) ) ){
-						// TODO:: add exeption.
-						// wrong type addigned to var.
-					}
-					
+						throw new IncompatibleType(name);
+						// wrong type assigned to var.
+					}	
 				}
 			}
 			var.init = true;
@@ -92,19 +97,19 @@ public class Variable {
 		// check for globals:
 		// check if variable is in st.
 		if (st.globals.get(name)==null){
-			// TODO:: add exception.
-			// variable not defines at assignment.
+			throw new UndefinedVariableUsed(name);
+			// variable not defined at assignment.
 		}
 		else {
 			Variable var = st.globals.get(name);
 			if (var.fin){
-				// TODO:: threw exception.
+				throw new FinalVariableAssignment(name);
 				// assignment to final variable.
 				
 			}
 			if (value_type!= st.get_variable_type(name)){
 				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
-					// TODO:: add exeption.
+					throw new IncompatibleType(name);
 					// wrong type addigned to var.
 				}
 			}

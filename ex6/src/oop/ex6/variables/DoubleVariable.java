@@ -3,6 +3,11 @@ package oop.ex6.variables;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.Exceptions.Ex6Exceptions;
+import oop.ex6.Exceptions.IncompatibleType;
+import oop.ex6.Exceptions.UnInitializedFinal;
+import oop.ex6.Exceptions.UsedBeforeAssignment;
+
 public class DoubleVariable extends Variable {
 	@SuppressWarnings("unused")
 	private double value;
@@ -19,7 +24,7 @@ public class DoubleVariable extends Variable {
 		return m.matches();
 	}
 	
-	public static DoubleVariable[] getVariablesFromDec(String line, SymbolTable st){
+	public static DoubleVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
 		int count = line.length() - line.replace(",", "").length();
 		count = count+1;
 		DoubleVariable[] vars = new DoubleVariable[count];
@@ -35,7 +40,7 @@ public class DoubleVariable extends Variable {
 		return vars;
 	}
 	
-	public static DoubleVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st){
+	public static DoubleVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
 		if(matcher.find(start_index[0])){
@@ -57,16 +62,18 @@ public class DoubleVariable extends Variable {
 						return new DoubleVariable(name, 0.0, fin);
 					}
 					else{
-						//TODO: Not same type
+						//Not same type
+						throw new IncompatibleType(name);
 					}
 				}
 				else {
-					//TODO: Not valid variable
+					//Not valid variable
+					throw new UsedBeforeAssignment(name);
 				}
 			}
 			else{
 				if(fin){
-					//TODO: If variable is final but not initiallized
+					throw new UnInitializedFinal(name);
 				}
 				return new DoubleVariable(name);
 			}

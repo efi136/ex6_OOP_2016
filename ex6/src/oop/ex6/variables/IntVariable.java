@@ -3,6 +3,11 @@ package oop.ex6.variables;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.Exceptions.Ex6Exceptions;
+import oop.ex6.Exceptions.IncompatibleType;
+import oop.ex6.Exceptions.UnInitializedFinal;
+import oop.ex6.Exceptions.UsedBeforeAssignment;
+
 public class IntVariable extends Variable {
 	
 	@SuppressWarnings("unused")
@@ -17,8 +22,9 @@ public class IntVariable extends Variable {
 	 * Returns all the variables declared in this line.
 	 * @param line - the line to be parsed.
 	 * @return - all the variables declared in this line.
+	 * @throws Ex6Exceptions 
 	 */
-	public static IntVariable[] getVariablesFromDec(String line, SymbolTable st){
+	public static IntVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
 		int count = line.length() - line.replace(",", "").length();
 		count = count+1;
 		IntVariable[] vars = new IntVariable[count];
@@ -41,8 +47,9 @@ public class IntVariable extends Variable {
 	 * @param fin - if the variable should be final or not.
 	 * @return The variable declared in this line starting from start_index.
 	 * int name =4, name1=2
+	 * @throws Ex6Exceptions 
 	 */
-	public static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st){
+	public static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
 		if(matcher.find(start_index[0])){
@@ -64,16 +71,18 @@ public class IntVariable extends Variable {
 						return new IntVariable(name, 0, fin);
 					}
 					else{
-						//TODO: Not same type
+						//Not same type
+						throw new IncompatibleType(name);
 					}
 				}
 				else {
-					//TODO: Not valid variable
+					//Not valid variable
+					throw new UsedBeforeAssignment(name);
 				}
 			}
 			else{
 				if(fin){
-					//TODO: If variable is final but not initiallized
+					throw new UnInitializedFinal(name);
 				}
 				return new IntVariable(name);
 			}

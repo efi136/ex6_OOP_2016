@@ -1,5 +1,7 @@
 package oop.ex6.codeBlocks;
 
+import oop.ex6.Exceptions.DuplicateVariable;
+import oop.ex6.Exceptions.Ex6Exceptions;
 import oop.ex6.main.FileParser;
 import oop.ex6.variables.Function;
 import oop.ex6.variables.SymbolTable;
@@ -13,7 +15,7 @@ public class GeneralBlock {
 		this.st = new SymbolTable();
 	}
 	
-	private void processGlobalVars(FileParser parser){
+	private void processGlobalVars(FileParser parser) throws Ex6Exceptions{
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
 			String command = parser.getCommand();
@@ -27,7 +29,7 @@ public class GeneralBlock {
 			if(scopeCounter == 0){
 				if(Variable.isVariableDec(command)){
 					if(!this.st.add_global_variables(Variable.getVariablesFromDec(command, st))){
-						//TODO: error double decleration
+						throw new DuplicateVariable(parser.getIndex());
 					}
 				}
 				else if(Variable.isAssignmentLine(command)){
@@ -37,7 +39,7 @@ public class GeneralBlock {
 		}
 	}
 	
-	private void proccessMethodDeclerations(FileParser parser){
+	private void proccessMethodDeclerations(FileParser parser) throws Ex6Exceptions{
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
 			String command = parser.getCommand();
@@ -51,7 +53,7 @@ public class GeneralBlock {
 			if(scopeCounter == 0){
 				if(MethodBlock.isLineMethodDec(command)){
 					if(!this.st.addGlobalFunction(Function.getFunctionFromDec(command))){
-						//TODO: error double decleration
+						throw new DuplicateVariable(parser.getIndex());
 					}
 				}
 			}
@@ -62,8 +64,9 @@ public class GeneralBlock {
 	 * This function processes the global block.
 	 * @param parser - the file
 	 * @return
+	 * @throws Ex6Exceptions 
 	 */
-	private boolean proccessBlock(FileParser parser){
+	private boolean proccessBlock(FileParser parser) throws Ex6Exceptions{
 		// the leagal operations here are method decleration and global variable decleration.
 		while(parser.hasMoreCommands()){
 			String command = parser.getCommand();
@@ -81,8 +84,7 @@ public class GeneralBlock {
 			}
 			else{
 				// this line should not be here. Error.
-				// TODO:: error.
-				return false;
+				throw new Ex6Exceptions(parser.getIndex());
 			}
 		}
 		return true;
@@ -94,11 +96,26 @@ public class GeneralBlock {
 	 * @return true if the compilation succeded. false otherwise.
 	 */
 	public boolean compile(FileParser parser){
-		this.processGlobalVars(parser);
+		try {
+			this.processGlobalVars(parser);
+		} catch (Ex6Exceptions e1) {
+			e1.printErrorMsg();
+			return false;
+		}
 		parser.reset();
-		this.proccessMethodDeclerations(parser);
+		try {
+			this.proccessMethodDeclerations(parser);
+		} catch (Ex6Exceptions e1) {
+			e1.printErrorMsg();
+			return false;
+		}
 		parser.reset();
-		this.proccessBlock(parser);
+		try {
+			this.proccessBlock(parser);
+		} catch (Ex6Exceptions e) {
+			e.printErrorMsg();
+			return false;
+		}
 		return true;
 	}
 	

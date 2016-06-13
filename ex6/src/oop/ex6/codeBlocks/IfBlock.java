@@ -3,6 +3,8 @@ package oop.ex6.codeBlocks;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.Exceptions.Ex6Exceptions;
+import oop.ex6.Exceptions.UsedBeforeAssignment;
 import oop.ex6.variables.BooleanVariable;
 import oop.ex6.variables.DoubleVariable;
 import oop.ex6.variables.IntVariable;
@@ -22,8 +24,9 @@ public class IfBlock extends CodeBlock {
 	 * @param line - the line to be checked.
 	 * @param st - the symbolTable
 	 * @return true if this line is legal and false otherwise.
+	 * @throws Ex6Exceptions 
 	 */
-	public static boolean isLineLegalIfBlock(String line, SymbolTable st){
+	public static boolean isLineLegalIfBlock(String line, SymbolTable st) throws Ex6Exceptions{
 		Pattern p = Pattern.compile(BLOCK_START);
 		Matcher m = p.matcher(line);
 		if (!m.matches()){
@@ -33,9 +36,8 @@ public class IfBlock extends CodeBlock {
 		condition = line.substring(3);
 		String[] names = getVariableNamesFromCondition(condition);
 		if (!st.isInit(names)){
-			// TODO:: add exception here.
+			throw new UsedBeforeAssignment(names[0]);
 			// uninitialized variable in if.
-			return false;
 		}
 		String[] types = st.get_variables_type(names);
 		boolean cond = true;
