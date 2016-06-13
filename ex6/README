@@ -1,0 +1,42 @@
+efi136
+208727693
+Efi Sapir
+doras100p
+208627802
+Doe Aharonson
+=============================
+=      README for ex6       =
+=============================
+
+==================
+=  Description:  =
+==================
+In this exercise we dealt with some files and exceptions.
+
+=============================
+=  List of submitted files: =
+=============================
+README (this file)
+DirectoryProcessor.java - the DirectoryProcessor class.
+
+======================
+=      Design        =
+======================
+I chose to implement a functor Filter. I used this functor to filter the files.
+The constructor of the Filter class removes the need for a factory.
+Also, I chose to implement this as a private class because there is no need to
+add this class to the API, nor do we want to use it elsewhere.
+It was the best solution I could think of.
+I also used some custom Comparator classes to use with java's sort.
+
+
+=========================
+= Implementation Issues =
+=========================
+There were no issues with the implementation.
+It was straight forward.
+
+=========================
+=    Special Remarks    =
+=========================
+None.

@@ -14,7 +14,7 @@ public class Variable {
 	protected boolean init;
 	protected boolean fin;
 	
-	public static final String FINAL = "final ";
+	public static final String FINAL = "final";
 	public static final String NAME_REGEX = "(((_)((\\w)+))|(([a-zA-Z])(\\w*)))";
 	public static final String VARIABLE_DECLERATION = "("+BooleanVariable.DECLERATION+"|"+
 	CharVariable.DECLERATION+"|"+DoubleVariable.DECLERATION+"|"+IntVariable.DECLERATION+"|"+
