@@ -56,6 +56,11 @@ public class IntVariable extends Variable {
 			if(matcher.find()){
 				return new IntVariable(name, Integer.parseInt(matcher.group()), fin);
 			}
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			if(matcher.find()){
+				String secondVariableName = matcher.group();
+				//TODO: If there'se int a = b
+			}
 			else{
 				if(fin){
 					//TODO: If variable is final but not initiallized
