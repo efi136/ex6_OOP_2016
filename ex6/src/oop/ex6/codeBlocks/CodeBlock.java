@@ -17,8 +17,8 @@ public class CodeBlock {
 	 * @param condition - the string of the condition.
 	 * @return
 	 */
-	protected static Variable[] getVariablesFromCondition(String condition){
-		return new Variable[1];
+	protected static String[] getVariableNamesFromCondition(String condition){
+		return new String[1];
 		// TODO :: do this.
 	}
 	

@@ -81,6 +81,20 @@ public class SymbolTable {
 		return false;
 	}
 	
+	/**
+	 * returns true if the variable name is global or if it is initialized.
+	 * @param name - the variable name.
+	 * @return - true if it is global or if it is initialized.
+	 */
+	public boolean isInit(String[] names){
+		for (String name : names){
+			if (!this.isInit(name)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public boolean add_global_variables(Variable[] variables){
 		for(Variable variable : variables){
 			if(globals.containsKey(variable.getName())){

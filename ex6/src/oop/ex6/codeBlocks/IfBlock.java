@@ -23,8 +23,9 @@ public class IfBlock extends CodeBlock {
 			return false;
 		}
 		String condition;
+		condition = line.substring(3);
+		Variable[] vars = getVariableNamesFromCondition(condition);
 		
-		Variables[] vars = getVariablesFromCondition(condition);
 	}
 	
 	
