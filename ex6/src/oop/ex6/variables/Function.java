@@ -52,7 +52,7 @@ public class Function {
 		m2 = Pattern.compile(Variable.NAME_REGEX).matcher(cut);
 		// make sure that it starts from the variable names and not the function name.
 		for(int i = 0; i <= count; i++){
-			String[] dec_parts = parts[i].split(" ");
+			String[] dec_parts = parts[i].trim().split(" ");
 			boolean fin = dec_parts.length == 3;
 			if(fin){
 				m2.find();
