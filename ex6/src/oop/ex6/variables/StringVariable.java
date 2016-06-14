@@ -12,6 +12,9 @@ public class StringVariable extends Variable {
 	
 	@SuppressWarnings("unused")
 	private String value;
+	/**
+	 * Regex expressions for a string variable
+	 */
 	public static final String VALUE_REGEX = "\"\\w*\"";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX + "))?";
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"));";
@@ -99,20 +102,34 @@ public class StringVariable extends Variable {
 		return new StringVariable("");
 	
 	}
-	
+	/**
+	 * Return the type of this variable.
+	 */
 	public String getType(){
 		return TYPE;
 	}
-	
+	/**
+	 * A constructor
+	 * @param name - The name of the variable
+	 */
 	public StringVariable(String name) {
 		super(name);
 	}
-
+	/**
+	 * A constructor
+	 * @param name - The name of the variable
+	 * @param value - The value of this variable
+	 */
 	public StringVariable(String name, String value) {
 		super(name);
 		this.setValue(value);
 	}
-	
+	/**
+	 * A constructor that also set wheter a variable is final
+	 * @param name - The name of the variable
+	 * @param value - The value of this variable
+	 * @param fin - Whether the variable is final or not
+	 */
 	public StringVariable(String name, String value, boolean fin){
 		super(name);
 		this.setValue(value);

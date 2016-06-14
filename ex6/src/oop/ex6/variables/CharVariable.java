@@ -11,7 +11,9 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 public class CharVariable extends Variable {
 	@SuppressWarnings("unused")
 	private char value;
-	
+	/**
+	 * Regex expressions for a char variable
+	 */
 	public static final String VALUE_REGEX = "\'.\'";
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"))?";
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"));";
@@ -99,20 +101,34 @@ public class CharVariable extends Variable {
 		return new CharVariable("");
 	
 	}
-	
+	/**
+	 * Return the type of this variable.
+	 */
 	public String getType(){
 		return TYPE;
 	}
-	
+	/**
+	 * A constructor
+	 * @param name - The name of the variable
+	 */
 	public CharVariable(String name) {
 		super(name);
 	}
-	
+	/**
+	 * A constructor
+	 * @param name - The name of the variable
+	 * @param value - The value of this variable
+	 */
 	public CharVariable(String name, char value) {
 		super(name);
 		this.setValue(value);
 	}
-	
+	/**
+	 * A constructor that also set wheter a variable is final
+	 * @param name - The name of the variable
+	 * @param value - The value of this variable
+	 * @param fin - Whether the variable is final or not
+	 */
 	public CharVariable(String name, char value, boolean fin){
 		super(name);
 		this.setValue(value);

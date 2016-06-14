@@ -106,19 +106,35 @@ public class BooleanVariable extends Variable {
 	
 	}
 	
+	/**
+	 * Return the type of this variable.
+	 */
 	public String getType(){
 		return TYPE;
 	}
 	
+	/**
+	 * A constructor
+	 * @param name - The name of the variable
+	 */
 	public BooleanVariable(String name) {
 		super(name);
 	}
-
+	/**
+	 * A constructor
+	 * @param name - The name of the variable
+	 * @param value - The value of this variable
+	 */
 	public BooleanVariable(String name, boolean value) {
 		super(name);
 		this.setValue(value);
 	}
-	
+	/**
+	 * A constructor that also set wheter a variable is final
+	 * @param name - The name of the variable
+	 * @param value - The value of this variable
+	 * @param fin - Whether the variable is final or not
+	 */
 	public BooleanVariable(String name, boolean value, boolean fin){
 		super(name);
 		this.setValue(value);
