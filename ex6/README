@@ -1,9 +1,10 @@
 efi136
+doras100p
 208727693
 Efi Sapir
 doras100p
 208627802
-Doe Aharonson
+Dor Aharonson
 =============================
 =      README for ex6       =
 =============================
@@ -11,32 +12,111 @@ Doe Aharonson
 ==================
 =  Description:  =
 ==================
-In this exercise we dealt with some files and exceptions.
+In this exercise we implemented a sJava validator.
 
 =============================
 =  List of submitted files: =
 =============================
 README (this file)
-DirectoryProcessor.java - the DirectoryProcessor class.
+codeBlocks:
+	CodeBlock.java - 
+	GeneralBlock.java - 
+	IfBlock.java - 
+	MethodBlock.java - 
+	WhileBlock.java - 
+Exceptions:
+	Ex6Exception.java - 
+	DuplicateVariable.java - 
+	FinalVariableAssignment.java - 
+	IncompatibleType.java - 
+	NoReturn.java - 
+	UndefinedVariableUsed.java - 
+	UnExpectedEndOfFile.java - 
+	UnInitializedFinal.java - 
+	UsedBeforeAssignment.java - 
+main:
+	FileParser.java - 
+	Sjavac.java - 
+variables:
+	Variable.java - 
+	BooleanVariable.java - 
+	CharVariable.java - 
+	DoubleVariable.java - 
+	IntVariable.java - 
+	StringVariable.java - 
+	Function.java - 
+	SymbolTable.java - 
+	
+The names are realy inforative. No description needed.
 
 ======================
 =      Design        =
 ======================
-I chose to implement a functor Filter. I used this functor to filter the files.
-The constructor of the Filter class removes the need for a factory.
-Also, I chose to implement this as a private class because there is no need to
-add this class to the API, nor do we want to use it elsewhere.
-It was the best solution I could think of.
-I also used some custom Comparator classes to use with java's sort.
+We devided the assignment to four parts.
+The file parser. It is not complicated. Simply reads the file and acts as
+the gateway to the code for all the other files.
 
 
 =========================
 = Implementation Issues =
 =========================
-There were no issues with the implementation.
-It was straight forward.
+
+
+
+=========================
+=   Questions           =
+=========================
+6.1:
+We handled the errors using exceptions.
+Each type of error had its own exception class. When running into an error 
+we throw an exception and catch it in the main validator function. Meaning
+we try to compile the code and if we hit an error we notify the main method and
+handle the error properly there. We print the error message using the catched 
+exception and print 1 to the screen.
+
+6.2:
+A.
+	In order to include more variable types in our code we would need to create 
+	anouther class that would inherit from variable and change the generic regular
+	expretion of the variable class to include the other classes type and value.
+	Simply add a class and Change 3 lines.
+B.
+	1. 
+		In order to add a unary and binary operators we would have to add a Term class.
+		In this class we would have all the necessery regular expretions to identify it,
+		A function to check if a line part is a term and a compile metod similar to the ones
+		in WhileBlock that will handle the compilation of the parts of the term.
+	2.
+		In order to add switch statements we would need to create a switchBlock calss similar
+		to ifBlock and whileBlock. it would have all the functions that they have with the
+		specifications of a switch block. (it is very similar, we don't think there is any need for
+		more details.)
+6.3:
+	1.
+		The METHOD_CALL = Variable.NAME_REGEX + "\\s*"
+			+ "[(]\\s*("+Variable.VALUE_OR_NAME+"\\s*(\\s*,\\s*"+Variable.VALUE_OR_NAME+"\\s*)*)?[)]\\s*;";
+		We used it to identify a method call.
+		It consists of smaller regexps we defined in other classes.
+	2.
+		The NAME_REGEX = "(((_)((\\w)+))|(([a-zA-Z])(\\w*)))"
+		We used it to identify variable names.
+		It checks all of the requirements for a variable name.
+		name is any sequence (length > 0) of letters (uppercase or lowercase), digits and the underscore
+		character ( ). name may not start with a digit. name may start with an underscore,
+		but in such a case it must contain at least one more character (i.e., ’ ’ is not a legal name).
+		Legal name examples: ’g2’, ’b 3’, ’ ’, ’ a’, ’ b’, ’ 0’, ’a ’.
+		Illegal name examples: ’2g’, ’ ’, ’2 ’, ’54 a’, ’3 3 3 b’. 
+
+
 
 =========================
 =    Special Remarks    =
 =========================
 None.
+
+
+
+
+
+
+
