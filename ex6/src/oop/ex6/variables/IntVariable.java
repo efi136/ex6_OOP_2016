@@ -10,7 +10,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class IntVariable extends Variable {
 	
-	@SuppressWarnings("unused")
 	/**
 	 * Regex expressions for an int variable
 	 */

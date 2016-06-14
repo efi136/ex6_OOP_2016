@@ -9,7 +9,6 @@ import oop.ex6.Exceptions.UnInitializedFinal;
 import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class BooleanVariable extends Variable {
-	@SuppressWarnings("unused")
 	/**
 	 * Regex expressions for a boolean variable
 	 */

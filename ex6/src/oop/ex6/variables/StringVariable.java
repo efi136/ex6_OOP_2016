@@ -10,7 +10,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class StringVariable extends Variable {
 	
-	@SuppressWarnings("unused")
 	/**
 	 * Regex expressions for a string variable
 	 */

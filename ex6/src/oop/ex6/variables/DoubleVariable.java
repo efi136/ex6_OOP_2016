@@ -9,7 +9,6 @@ import oop.ex6.Exceptions.UnInitializedFinal;
 import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class DoubleVariable extends Variable {
-	@SuppressWarnings("unused")
 	/**
 	 * Regex expressions for a double variable
 	 */
