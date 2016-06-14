@@ -98,6 +98,7 @@ public class Variable {
 				}
 			}
 			var.init = true;
+			return;
 		}
 		// check for globals:
 		// check if variable is in st.
