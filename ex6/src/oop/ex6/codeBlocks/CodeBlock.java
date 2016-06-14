@@ -3,13 +3,13 @@ package oop.ex6.codeBlocks;
 import oop.ex6.Exceptions.DuplicateVariable;
 import oop.ex6.Exceptions.Ex6Exceptions;
 import oop.ex6.Exceptions.UnExpectedEndOfFile;
+import oop.ex6.Symbols.BooleanVariable;
+import oop.ex6.Symbols.DoubleVariable;
+import oop.ex6.Symbols.Function;
+import oop.ex6.Symbols.IntVariable;
+import oop.ex6.Symbols.SymbolTable;
+import oop.ex6.Symbols.Variable;
 import oop.ex6.main.FileParser;
-import oop.ex6.variables.BooleanVariable;
-import oop.ex6.variables.DoubleVariable;
-import oop.ex6.variables.Function;
-import oop.ex6.variables.IntVariable;
-import oop.ex6.variables.SymbolTable;
-import oop.ex6.variables.Variable;
 
 public class CodeBlock {
 	//Regex expressions for conditions and blocks:

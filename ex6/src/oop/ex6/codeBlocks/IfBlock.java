@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 
 import oop.ex6.Exceptions.Ex6Exceptions;
 import oop.ex6.Exceptions.UsedBeforeAssignment;
-import oop.ex6.variables.BooleanVariable;
-import oop.ex6.variables.DoubleVariable;
-import oop.ex6.variables.IntVariable;
-import oop.ex6.variables.SymbolTable;
+import oop.ex6.Symbols.BooleanVariable;
+import oop.ex6.Symbols.DoubleVariable;
+import oop.ex6.Symbols.IntVariable;
+import oop.ex6.Symbols.SymbolTable;
 
 public class IfBlock extends CodeBlock {
 	/**

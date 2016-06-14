@@ -1,4 +1,4 @@
-package oop.ex6.variables;
+package oop.ex6.Symbols;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,23 +8,27 @@ import oop.ex6.Exceptions.IncompatibleType;
 import oop.ex6.Exceptions.UnInitializedFinal;
 import oop.ex6.Exceptions.UsedBeforeAssignment;
 
-public class StringVariable extends Variable {
-	
+public class CharVariable extends Variable {
 	/**
-	 * Regex expressions for a string variable
+	 * Regex expressions for a char variable
 	 */
-	public static final String VALUE_REGEX = "\"\\w*\"";
-	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX + "))?";
+	//The value of a char variable:
+	public static final String VALUE_REGEX = "\'.\'";
+	//An assignment of a char variable
+	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"))?";
+	//A line with multiple assignments of char variables
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"));";
-	public static final String TYPE = "String";
+	//The type
+	public static final String TYPE = "char";
+	//A decleration line of chars
 	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*\\s*;";
 	
 	/**
-	 * Checks if a line is a string variable decleration
+	 * Checks if a line is a char variable decleration
 	 * @param line - The line to check
-	 * @return - True if it's a string variable decleration and false otherwise
+	 * @return - True if it's a char variable decleration and false otherwise
 	 */
-	public static boolean isStringVariableDec(String line){
+	public static boolean isCharVariableDec(String line){
 		Pattern p = Pattern.compile(DECLERATION);
 		Matcher m = p.matcher(line);
 		return m.matches();
@@ -35,10 +39,10 @@ public class StringVariable extends Variable {
 	 * @return - all the variables declared in this line.
 	 * @throws Ex6Exceptions 
 	 */
-	public static StringVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
-		int count = line.length() - line.replace(",", "").length();
+	public static CharVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
+		int count = line.length() - line.replace(",", "").length(); //The number of variables declared
 		count = count+1;
-		StringVariable[] vars = new StringVariable[count];
+		CharVariable[] vars = new CharVariable[count];
 		boolean fin = line.startsWith(FINAL);
 		// This is an array only to pass the boolean by reference.
 		int[] start_index = {TYPE.length() + 1};
@@ -59,26 +63,26 @@ public class StringVariable extends Variable {
 	 * @return The variable declared in this line right after start index.
 	 * @throws Ex6Exceptions - General exception.
 	 */
-	public static StringVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{
+	public static CharVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);
 		if(matcher.find(start_index[0])){
 			start_index[0] = matcher.end();
 			String assignment = matcher.group();
 			matcher.reset(assignment);
-			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX)); //The name of the variable
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX)); //Find the name of the variable
 			matcher.find();
 			String name = matcher.group();
 			matcher.usePattern(Pattern.compile(VALUE_REGEX)); //Find the value of the variable
 			if(matcher.find()){
-				return new StringVariable(name, matcher.group(), fin);
+				return new CharVariable(name, matcher.group().charAt(0), fin);
 			}
 			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
 			if(matcher.find()){
 				String secondVariableName = matcher.group();
 				if(st.isInit(secondVariableName)){
 					if(st.get_variable_type(secondVariableName).equals(TYPE)){
-						return new StringVariable(name, "", fin);
+						return new CharVariable(name, 'a', fin);
 					}
 					else{
 						//Not same type
@@ -95,10 +99,10 @@ public class StringVariable extends Variable {
 					//Uninitialized final varible
 					throw new UnInitializedFinal(name);
 				}
-				return new StringVariable(name);
+				return new CharVariable(name);
 			}
 		}
-		return new StringVariable("");
+		return new CharVariable("");
 	
 	}
 	/**
@@ -111,7 +115,7 @@ public class StringVariable extends Variable {
 	 * A constructor
 	 * @param name - The name of the variable
 	 */
-	public StringVariable(String name) {
+	public CharVariable(String name) {
 		super(name);
 	}
 	/**
@@ -119,7 +123,7 @@ public class StringVariable extends Variable {
 	 * @param name - The name of the variable
 	 * @param value - The value of this variable
 	 */
-	public StringVariable(String name, String value) {
+	public CharVariable(String name, char value) {
 		super(name);
 		this.setValue(value);
 	}
@@ -129,22 +133,22 @@ public class StringVariable extends Variable {
 	 * @param value - The value of this variable
 	 * @param fin - Whether the variable is final or not
 	 */
-	public StringVariable(String name, Object value, boolean fin){
+	public CharVariable(String name, Object value, boolean fin){
 		super(name);
 		this.setValue(value);
 		this.fin = fin;
 	}
 	
-	
+
 	/**
 	 * This method clones the variable.
 	 */
 	public Variable clone(){
 		if (this.init){
-			return new StringVariable(name,null,fin);
+			return new CharVariable(name,null,fin);
 		}
 		else{
-			return new StringVariable(name);
+			return new CharVariable(name);
 		}
 	}
 	/**
@@ -154,5 +158,4 @@ public class StringVariable extends Variable {
 	public void setValue(Object value){
 		this.init = true;
 	}
-	
 }

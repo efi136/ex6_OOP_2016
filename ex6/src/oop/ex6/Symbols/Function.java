@@ -1,4 +1,4 @@
-package oop.ex6.variables;
+package oop.ex6.Symbols;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;

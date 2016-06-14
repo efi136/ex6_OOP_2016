@@ -53,8 +53,19 @@ The names are realy inforative. No description needed.
 =      Design        =
 ======================
 We devided the assignment to four parts.
-The file parser. It is not complicated. Simply reads the file and acts as
-the gateway to the code for all the other files.
+FileParser - 
+	The file parser. It is not complicated. Simply reads the file and acts as
+	the gateway to the code for all the other files.
+	This class has an array of Strings that contain the lines of the code.
+	It also deals with the comments and whitespaces.
+Exceptions - 
+	The exceptions are pretty straight forward. The all inherit from Ex6Exception.
+	Each one is for a specific type of error.
+	They all have a method for printing the error to the screen using System.err.
+Symbols- 
+	
+
+
 
 
 =========================
