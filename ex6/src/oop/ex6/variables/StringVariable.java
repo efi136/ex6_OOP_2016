@@ -11,7 +11,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 public class StringVariable extends Variable {
 	
 	@SuppressWarnings("unused")
-	private String value;
 	/**
 	 * Regex expressions for a string variable
 	 */
@@ -130,15 +129,27 @@ public class StringVariable extends Variable {
 	 * @param value - The value of this variable
 	 * @param fin - Whether the variable is final or not
 	 */
-	public StringVariable(String name, String value, boolean fin){
+	public StringVariable(String name, Object value, boolean fin){
 		super(name);
 		this.setValue(value);
 		this.fin = fin;
 	}
 	
-	public void setValue(String value){
+	
+	/**
+	 * This method clones the variable.
+	 */
+	public Variable clone(){
+		if (this.init){
+			return new StringVariable(name,null,fin);
+		}
+		else{
+			return new StringVariable(name);
+		}
+	}
+	
+	public void setValue(Object value){
 		this.init = true;
-		this.value = value;
 	}
 	
 }

@@ -28,7 +28,12 @@ public class SymbolTable {
 	 * @param st - the SymbolTable to copy.
 	 */
 	public SymbolTable(SymbolTable st){
-		this.globals = st.globals;
+		this.globals = new HashMap<String,Variable>();
+		for (String name:st.globals.keySet()){
+			Variable var = st.globals.get(name);
+			Variable temp_var = var.clone();
+			this.globals.put(name, temp_var);
+		}
 		this.locals = st.locals;
 		this.functions = st.functions;
 	}

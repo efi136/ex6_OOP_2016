@@ -11,7 +11,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 public class IntVariable extends Variable {
 	
 	@SuppressWarnings("unused")
-	private int value;
 	/**
 	 * Regex expressions for an int variable
 	 */
@@ -131,15 +130,26 @@ public class IntVariable extends Variable {
 	 * @param value - The value of this variable
 	 * @param fin - Whether the variable is final or not
 	 */
-	public IntVariable(String name, int value, boolean fin){
+	public IntVariable(String name, Object value, boolean fin){
 		super(name);
 		this.setValue(value);
 		this.fin = fin;
 	}
 	
-	public void setValue(int value){
+	/**
+	 * This method clones the variable.
+	 */
+	public Variable clone(){
+		if (this.init){
+			return new IntVariable(name,null,fin);
+		}
+		else{
+			return new IntVariable(name);
+		}
+	}
+	
+	public void setValue(Object value){
 		this.init = true;
-		this.value = value;
 	}
 	
 }

@@ -159,6 +159,10 @@ public class Variable {
 		this.fin = false;
 	}
 	
+	public Variable clone(){
+		return new Variable(name);
+	}
+	
 	public String getName() {
 		return name;
 	}

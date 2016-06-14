@@ -10,7 +10,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class BooleanVariable extends Variable {
 	@SuppressWarnings("unused")
-	private boolean value;
 	/**
 	 * Regex expressions for a boolean variable
 	 */
@@ -135,14 +134,25 @@ public class BooleanVariable extends Variable {
 	 * @param value - The value of this variable
 	 * @param fin - Whether the variable is final or not
 	 */
-	public BooleanVariable(String name, boolean value, boolean fin){
+	public BooleanVariable(String name, Object value, boolean fin){
 		super(name);
 		this.setValue(value);
 		this.fin = fin;
 	}
 	
-	public void setValue(boolean value){
+	/**
+	 * This method clones the variable.
+	 */
+	public Variable clone(){
+		if (this.init){
+			return new BooleanVariable(name,null,fin);
+		}
+		else{
+			return new BooleanVariable(name);
+		}
+	}
+	
+	public void setValue(Object value){
 		this.init = true;
-		this.value = value;
 	}
 }
