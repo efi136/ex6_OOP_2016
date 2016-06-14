@@ -28,7 +28,8 @@ public class Variable {
 	public static final String VALUES = "("+BooleanVariable.VALUE_REGEX+"|"+CharVariable.VALUE_REGEX+"|"+
 			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+StringVariable.VALUE_REGEX+")";
 	public static final String METHOD_DECLERATION = "("+TYPES+" "+NAME_REGEX+")";
-	
+		public static final String VALUE_OR_NAME = "("+NAME_REGEX+"|"+VALUES+")";
+
 	/**
 	 * Check if a line is a variable decleration
 	 * @param line - The line

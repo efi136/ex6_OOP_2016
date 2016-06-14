@@ -9,7 +9,6 @@ import oop.ex6.Exceptions.UnInitializedFinal;
 import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class BooleanVariable extends Variable {
-	@SuppressWarnings("unused")
 	/**
 	 * Regex expressions for a boolean variable
 	 */
@@ -17,7 +16,7 @@ public class BooleanVariable extends Variable {
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX + "))?";
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"));";
 	public static final String TYPE = "boolean";
-	public static final String DECLERATION = "(final \\s*)?" +  TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
+	public static final String DECLERATION = "(final \\s*)?" +  TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*\\s*;";
 
 	/**
 	 * Checks if a line is a boolean variable decleration

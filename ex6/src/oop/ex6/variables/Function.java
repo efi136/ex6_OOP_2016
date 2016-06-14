@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.codeBlocks.CodeBlock;
+
 public class Function {
 	private String name;
 	private int num_of_parameters;
 	private Variable[] type_of_parameters;
-	public static final String METHOD_CALL = Variable.NAME_REGEX + "[\\s*(\\s*]"+Variable.NAME_REGEX+"\\s*(,\\s*"+Variable.NAME_REGEX+"\\s*)*[)]\\s*;";
+	public static final String METHOD_CALL = Variable.NAME_REGEX + "\\s*"
+			+ "[(]\\s*("+Variable.VALUE_OR_NAME+"\\s*(\\s*,\\s*"+Variable.VALUE_OR_NAME+"\\s*)*)?[)]\\s*;";
 	private static final int START_INDEX_FOR_NAME = 0;
 	
 	/**
@@ -97,30 +100,8 @@ public class Function {
 		return vars;
 	}
 	
-	/**
-	 * Returns the name of the variables in a function call
-	 * @param line - the line with the function call
-	 * @return the name of the variables in a function call
-	 */
-	public static String[] getVariableNameFromFuncCall(String line){
-		int count = line.length() - line.replace(",", "").length();
-		if (line.indexOf(')') - line.indexOf('(') == 1){
-			// no variables.
-			return null;
-		}
-		String[] names = new String[count+1];
-		Pattern p = Pattern.compile(Variable.NAME_REGEX);
-		Matcher m = p.matcher(line);
-		// make sure that it starts from the variable names and not the function name.
-		m.find(START_INDEX_FOR_NAME);
-		int start_index = m.end(); 
-		for (int i=0; i<=count; i++){
-			m.find(start_index);
-			start_index = m.end();
-			names[i] = m.group();
-		}
-		return names;
-	}
+
+	
 	
 	/**
 	 * Checks if the line is a leagal function call for this function.
@@ -131,14 +112,14 @@ public class Function {
 	public boolean isLineLegalFunctionCall(String line, SymbolTable st){
 		Pattern p = Pattern.compile(METHOD_CALL);
 		Matcher m = p.matcher(line);
-		if (m.matches()){
+		if (!m.matches()){
 			return false;
 		}
 		String name = get_name(line);
 		if (!name.equals(this.name)){
 			return false;
 		}
-		String[] names = getVariableNameFromFuncCall(line);
+		String[] names = CodeBlock.getVariableNameFromFuncCall(line);
 		// in case it has no parameters.
 		if (names == null){
 			return this.num_of_parameters == 0;
@@ -149,9 +130,9 @@ public class Function {
 		}
 		// check if the types are olay.
 		for (int i=0; i<types.length; i++){
-			if (!this.type_of_parameters[i].equals(types[i])){
-				if (!(this.type_of_parameters[i].equals(DoubleVariable.TYPE) && types[i].equals(IntVariable.TYPE))){
-					if (!(this.type_of_parameters[i].equals(BooleanVariable.TYPE)
+			if (!this.type_of_parameters[i].getType().equals(types[i])){
+				if (!(this.type_of_parameters[i].getType().equals(DoubleVariable.TYPE) && types[i].equals(IntVariable.TYPE))){
+					if (!(this.type_of_parameters[i].getType().equals(BooleanVariable.TYPE)
 							&& (types[i].equals(IntVariable.TYPE) || types[i].equals(DoubleVariable.TYPE) ) ) ){
 						return false;
 					}
