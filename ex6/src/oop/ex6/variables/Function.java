@@ -11,6 +11,11 @@ public class Function {
 	public static final String METHOD_CALL = Variable.NAME_REGEX + "[\\s*(\\s*]"+Variable.NAME_REGEX+"\\s*(,\\s*"+Variable.NAME_REGEX+"\\s*)*[)]\\s*;";
 	private static final int START_INDEX_FOR_NAME = 0;
 	
+	/**
+	 * Returns the name of the method declared in this line.
+	 * @param line - The line to check.
+	 * @return the name of the method declared in this line.
+	 */
 	public static String get_name(String line){
 		Pattern p = Pattern.compile(Variable.NAME_REGEX);
 		Matcher m = p.matcher(line);
@@ -34,10 +39,20 @@ public class Function {
 		return false;
 	}
 	
+	/**
+	 * Returns the function declared in a line
+	 * @param line - The line
+	 * @return the function declared in this line
+	 */
 	public static Function getFunctionFromDec(String line){
 		return new Function(line.substring(5, line.indexOf('(')), getVariablesFromDec(line));
 	}
 	
+	/**
+	 * Returns the variable arguments in a method decleration.
+	 * @param line - The line of the decleration.
+	 * @return the variable arguments in a method decleration.
+	 */
 	public static Variable[] getVariablesFromDec(String line){
 		int count = line.length() - line.replace(",", "").length();
 		if (line.indexOf(')') - line.indexOf('(') == 1){
@@ -82,6 +97,11 @@ public class Function {
 		return vars;
 	}
 	
+	/**
+	 * Returns the name of the variables in a function call
+	 * @param line - the line with the function call
+	 * @return the name of the variables in a function call
+	 */
 	public static String[] getVariableNameFromFuncCall(String line){
 		int count = line.length() - line.replace(",", "").length();
 		if (line.indexOf(')') - line.indexOf('(') == 1){
@@ -144,11 +164,20 @@ public class Function {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Returns the name of this function.
+	 * @return the name of this function.
+	 */
 	public String getName(){
 		return this.name;
 	}
 	
+	/**
+	 * A constructor that recieves a name and variables.
+	 * @param name - The name of the function
+	 * @param types - The types of variables this function needs.
+	 */
 	public Function(String name, Variable[] types){
 		this.name = name;
 		this.type_of_parameters = types;
