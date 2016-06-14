@@ -64,6 +64,13 @@ public class GeneralBlock {
 			String command = parser.getCommand();
 			parser.advance();
 			if(command.contains("{")){
+				if(scopeCounter == 0){
+					if(MethodBlock.isLineMethodDec(command)){
+						if(!this.st.addGlobalFunction(Function.getFunctionFromDec(command))){
+							throw new DuplicateVariable(parser.getIndex());
+						}
+					}
+				}
 				scopeCounter++;
 			}
 			else if(command.contains("}")){

@@ -146,7 +146,12 @@ public class Function {
 	public Function(String name, Variable[] types){
 		this.name = name;
 		this.type_of_parameters = types;
-		this.num_of_parameters = types.length;
+		if (types == null){
+			this.num_of_parameters = 0;
+		}
+		else{
+			this.num_of_parameters = types.length;
+		}
 	}
 	
 }
