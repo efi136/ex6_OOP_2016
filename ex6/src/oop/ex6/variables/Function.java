@@ -8,7 +8,8 @@ public class Function {
 	private String name;
 	private int num_of_parameters;
 	private Variable[] type_of_parameters;
-	public static final String METHOD_CALL = Variable.NAME_REGEX + "[\\s*(\\s*]"+Variable.NAME_REGEX+"\\s*(,\\s*"+Variable.NAME_REGEX+"\\s*)*[)]\\s*;";
+	public static final String METHOD_CALL = Variable.NAME_REGEX + "\\s*"
+			+ "[(]\\s*("+Variable.VALUE_OR_NAME+"\\s*(\\s*,\\s*"+Variable.VALUE_OR_NAME+"\\s*)*)?[)]\\s*;";
 	private static final int START_INDEX_FOR_NAME = 0;
 	
 	/**
@@ -128,7 +129,7 @@ public class Function {
 	public boolean isLineLegalFunctionCall(String line, SymbolTable st){
 		Pattern p = Pattern.compile(METHOD_CALL);
 		Matcher m = p.matcher(line);
-		if (m.matches()){
+		if (!m.matches()){
 			return false;
 		}
 		String name = get_name(line);

@@ -28,6 +28,8 @@ public class Variable {
 			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+StringVariable.VALUE_REGEX+")";
 	public static final String METHOD_DECLERATION = "("+TYPES+" "+NAME_REGEX+")";
 	
+	public static final String VALUE_OR_NAME = "("+NAME_REGEX+"|"+VALUES+")";
+	
 	public static boolean isVariableDec(String line){
 		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
 		Matcher m = p.matcher(line);
