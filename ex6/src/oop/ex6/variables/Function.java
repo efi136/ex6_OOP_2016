@@ -45,31 +45,33 @@ public class Function {
 			return null;
 		}
 		String cut = line.substring(line.indexOf('('));
+		String[] parts = cut.split(cut,',');
 		Variable[] vars = new Variable[count+1];
 		Matcher m2;
 		String type, name;
 		m2 = Pattern.compile(Variable.NAME_REGEX).matcher(cut);
 		// make sure that it starts from the variable names and not the function name.
 		for(int i = 0; i <= count; i++){
+			boolean fin = parts[i].split(" ").length == 3;
 			m2.find();
 			type = m2.group();
 			m2.find();
 			name = m2.group();
 			switch(type){
 			case BooleanVariable.TYPE:
-				vars[i] = new BooleanVariable(name, true, true);
+				vars[i] = new BooleanVariable(name, true, fin);
 				break;
 			case IntVariable.TYPE:
-				vars[i] = new IntVariable(name, 0, true);
+				vars[i] = new IntVariable(name, 0, fin);
 				break;
 			case StringVariable.TYPE:
-				vars[i] = new StringVariable(name, "", true);
+				vars[i] = new StringVariable(name, "", fin);
 				break;
 			case CharVariable.TYPE:
-				vars[i] = new CharVariable(name, 'a', true);
+				vars[i] = new CharVariable(name, 'a', fin);
 				break;
 			case DoubleVariable.TYPE:
-				vars[i] = new DoubleVariable(name, 0, true);
+				vars[i] = new DoubleVariable(name, 0, fin);
 				break;
 			}
 		}
