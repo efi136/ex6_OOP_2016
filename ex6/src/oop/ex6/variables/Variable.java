@@ -76,7 +76,7 @@ public class Variable {
 	 */
 	public static void processAssignmentLine(String line, SymbolTable st) throws Ex6Exceptions{
 		String[] parts = line.split("=");
-		String name = parts[0];
+		String name = parts[0].trim();
 		String value = parts[1].trim();
 		value = value.substring(0, value.length()-1);
 		String value_type = getValueType(value);

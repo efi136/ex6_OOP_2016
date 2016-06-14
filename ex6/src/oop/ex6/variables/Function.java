@@ -44,15 +44,19 @@ public class Function {
 			// no variables.
 			return null;
 		}
-		String cut = line.substring(line.indexOf('('));
-		String[] parts = cut.split(cut,',');
+		String cut = line.substring(line.indexOf('(')+1,line.lastIndexOf(')'));
+		String[] parts = cut.split(",");
 		Variable[] vars = new Variable[count+1];
 		Matcher m2;
 		String type, name;
 		m2 = Pattern.compile(Variable.NAME_REGEX).matcher(cut);
 		// make sure that it starts from the variable names and not the function name.
 		for(int i = 0; i <= count; i++){
-			boolean fin = parts[i].split(" ").length == 3;
+			String[] dec_parts = parts[i].split(" ");
+			boolean fin = dec_parts.length == 3;
+			if(fin){
+				m2.find();
+			}
 			m2.find();
 			type = m2.group();
 			m2.find();
