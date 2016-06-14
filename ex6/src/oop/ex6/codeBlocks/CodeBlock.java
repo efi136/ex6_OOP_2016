@@ -80,7 +80,7 @@ public class CodeBlock {
 			parser.advance();
 		}
 		else if(Variable.isVariableDec(line)){ //check if it's a varaible decleration
-			if(!st.add_local_variables(Variable.getVariablesFromDec(line, st))){
+			if(!st.addLocalVariables(Variable.getVariablesFromDec(line, st))){
 				throw new DuplicateVariable(parser.getIndex());
 			}
 			parser.advance();

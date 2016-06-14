@@ -44,7 +44,7 @@ public class WhileBlock extends CodeBlock {
 			throw new UsedBeforeAssignment(names[0]);
 			// uninitialized variable in if.
 		}
-		String[] types = st.get_variables_type(names); //The types of the variables
+		String[] types = st.getVariablesType(names); //The types of the variables
 		boolean cond = true;
 		for (String type: types){
 			switch (type){

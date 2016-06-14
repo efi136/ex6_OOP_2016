@@ -137,7 +137,7 @@ public class Function {
 		if (names == null){
 			return this.num_of_parameters == 0;
 		}
-		String[] types = st.get_variables_type(names);
+		String[] types = st.getVariablesType(names);
 		if (names.length!=this.num_of_parameters){
 			return false;
 		}

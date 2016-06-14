@@ -84,7 +84,7 @@ public class BooleanVariable extends Variable {
 			if(matcher.find()){ //If it's an asignment of a variable in a variable.
 				String secondVariableName = matcher.group();
 				if(st.isInit(secondVariableName)){
-					if(st.get_variable_type(secondVariableName).equals(TYPE)){
+					if(st.getVariableType(secondVariableName).equals(TYPE)){
 						return new BooleanVariable(name, false, fin);
 					}
 					else{

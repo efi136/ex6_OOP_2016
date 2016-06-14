@@ -57,10 +57,10 @@ public class SymbolTable {
 	 * @param names - An array of strings of the names of the variables to be checked
 	 * @return an array of strings consinsting with the types of the variables
 	 */
-	public String[] get_variables_type(String[] names){
+	public String[] getVariablesType(String[] names){
 		String[] types = new String[names.length];
 		for (int i=0; i<types.length; i++){
-			types[i] = this.get_variable_type(names[i]);
+			types[i] = this.getVariableType(names[i]);
 		}
 		return types;
 	}
@@ -77,7 +77,7 @@ public class SymbolTable {
 	 * @param name - The name of the variable
 	 * @return the type of the variable
 	 */
-	public String get_variable_type(String name){
+	public String getVariableType(String name){
 		Variable var;
 		Pattern p = Pattern.compile(Variable.VALUES);
 		Matcher m = p.matcher(name);
@@ -151,7 +151,7 @@ public class SymbolTable {
 	 * @param variables - The variables to add
 	 * @return true if succesful false otherwise
 	 */
-	public boolean add_global_variables(Variable[] variables){
+	public boolean addGlobalVariables(Variable[] variables){
 		for(Variable variable : variables){
 			if(globals.containsKey(variable.getName())){
 				return false;
@@ -166,7 +166,7 @@ public class SymbolTable {
 	 * @param variables - The variables to add
 	 * @return true if succesful false otherwise
 	 */
-	public boolean add_local_variables(Variable[] variables){
+	public boolean addLocalVariables(Variable[] variables){
 		for(Variable variable : variables){
 			if(locals.containsKey(variable.getName())){
 				return false;

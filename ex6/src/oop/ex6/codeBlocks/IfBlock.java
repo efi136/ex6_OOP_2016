@@ -49,7 +49,7 @@ public class IfBlock extends CodeBlock {
 			throw new UsedBeforeAssignment(names[0]);
 			// uninitialized variable in if.
 		}
-		String[] types = st.get_variables_type(names);
+		String[] types = st.getVariablesType(names);
 		boolean cond = true;
 		for (String type: types){
 			switch (type){

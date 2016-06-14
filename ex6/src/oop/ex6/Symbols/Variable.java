@@ -110,9 +110,9 @@ public class Variable {
 				throw new FinalVariableAssignment(name);
 				// assignment to final variable.
 			}
-			if (value_type!= st.get_variable_type(name)){
-				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
-					if (!(st.get_variable_type(name)==BooleanVariable.TYPE && 
+			if (value_type!= st.getVariableType(name)){
+				if (!(value_type==IntVariable.TYPE&&st.getVariableType(name)==DoubleVariable.TYPE)){
+					if (!(st.getVariableType(name)==BooleanVariable.TYPE && 
 							(value_type.equals(IntVariable.TYPE) || value_type.equals(DoubleVariable.TYPE) ) ) ){
 						throw new IncompatibleType(name);
 						// wrong type assigned to var.
@@ -135,8 +135,8 @@ public class Variable {
 				// assignment to final variable.
 				
 			}
-			if (value_type!= st.get_variable_type(name)){
-				if (!(value_type==IntVariable.TYPE&&st.get_variable_type(name)==DoubleVariable.TYPE)){
+			if (value_type!= st.getVariableType(name)){
+				if (!(value_type==IntVariable.TYPE&&st.getVariableType(name)==DoubleVariable.TYPE)){
 					throw new IncompatibleType(name);
 					// wrong type addigned to var.
 				}

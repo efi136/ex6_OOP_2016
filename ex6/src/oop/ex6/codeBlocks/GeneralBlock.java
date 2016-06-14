@@ -38,7 +38,7 @@ public class GeneralBlock {
 			else if(scopeCounter == 0){
 				//if outside of all scopes
 				if(Variable.isVariableDec(command)){ //Check if a legal variable decleratoin
-					if(!this.st.add_global_variables(Variable.getVariablesFromDec(command, st))){
+					if(!this.st.addGlobalVariables(Variable.getVariablesFromDec(command, st))){
 						throw new DuplicateVariable(parser.getIndex());
 					}
 				}
