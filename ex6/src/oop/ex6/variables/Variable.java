@@ -128,17 +128,17 @@ public class Variable {
 	 * @return the type of the value.
 	 */
 	public static String getValueType(String value){
-		if (Pattern.matches(BooleanVariable.VALUE_REGEX, value)){
-			return BooleanVariable.TYPE;
-		}
-		else if (Pattern.matches(CharVariable.VALUE_REGEX, value)){
-			return CharVariable.TYPE;
+		if (Pattern.matches(IntVariable.VALUE_REGEX, value)){
+			return IntVariable.TYPE;
 		}
 		else if (Pattern.matches(DoubleVariable.VALUE_REGEX, value)){
 			return DoubleVariable.TYPE;
 		}
-		else if (Pattern.matches(IntVariable.VALUE_REGEX, value)){
-			return IntVariable.TYPE;
+		else if (Pattern.matches(BooleanVariable.VALUE_REGEX, value)){
+			return BooleanVariable.TYPE;
+		}
+		else if (Pattern.matches(CharVariable.VALUE_REGEX, value)){
+			return CharVariable.TYPE;
 		}
 		else if (Pattern.matches(StringVariable.VALUE_REGEX, value)){
 			return StringVariable.TYPE;
