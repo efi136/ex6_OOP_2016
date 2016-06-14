@@ -13,9 +13,12 @@ import oop.ex6.variables.SymbolTable;
 
 public class WhileBlock extends CodeBlock {
 	
+	//The block name:
 	public static final String BLOCK_NAME = "while";
+	//The start of a while block
 	public static final String BLOCK_START = "\\s*"+BLOCK_NAME+"\\s*[(]"+COMPLEX_COND+"[)]\\s*[{]";
 	
+	//A while block constructor
 	public WhileBlock(SymbolTable st){
 		this.st = new SymbolTable(st);
 	}
@@ -31,16 +34,17 @@ public class WhileBlock extends CodeBlock {
 		Pattern p = Pattern.compile(BLOCK_START);
 		Matcher m = p.matcher(line);
 		if (!m.matches()){
+			//If the block doesn't start as a while block
 			return false;
 		}
 		String condition;
-		condition = line.substring(5);
-		String[] names = getVariableNamesFromCondition(condition);
+		condition = line.substring(5); //The condition for the while block
+		String[] names = getVariableNamesFromCondition(condition); //The names of the variables
 		if (!st.isInit(names)){
 			throw new UsedBeforeAssignment(names[0]);
 			// uninitialized variable in if.
 		}
-		String[] types = st.get_variables_type(names);
+		String[] types = st.get_variables_type(names); //The types of the variables
 		boolean cond = true;
 		for (String type: types){
 			switch (type){
@@ -49,6 +53,7 @@ public class WhileBlock extends CodeBlock {
 			case BooleanVariable.TYPE:
 				break;
 			default:
+				//If the condition is not int, double, or boolean
 				cond = false;
 			}
 		}

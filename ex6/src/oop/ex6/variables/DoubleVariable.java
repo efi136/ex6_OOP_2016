@@ -65,10 +65,10 @@ public class DoubleVariable extends Variable {
 			start_index[0] = matcher.end();
 			String assignment = matcher.group();
 			matcher.reset(assignment);
-			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX)); //The name of the variable
 			matcher.find();
 			String name = matcher.group();
-			matcher.usePattern(Pattern.compile(VALUE_REGEX));
+			matcher.usePattern(Pattern.compile(VALUE_REGEX)); //Find the value of the variable
 			if(matcher.find()){
 				return new DoubleVariable(name, Double.parseDouble(matcher.group()), fin);
 			}
@@ -91,6 +91,7 @@ public class DoubleVariable extends Variable {
 			}
 			else{
 				if(fin){
+					//Uninitialized final varible
 					throw new UnInitializedFinal(name);
 				}
 				return new DoubleVariable(name);
@@ -144,7 +145,10 @@ public class DoubleVariable extends Variable {
 			return new DoubleVariable(name);
 		}
 	}
-	
+	/**
+	 * Set the variable as initialized
+	 * @param value - The value it's initizlied with
+	 */
 	public void setValue(Object value){
 		this.init = true;
 	}

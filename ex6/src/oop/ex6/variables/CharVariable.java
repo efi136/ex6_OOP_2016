@@ -12,10 +12,15 @@ public class CharVariable extends Variable {
 	/**
 	 * Regex expressions for a char variable
 	 */
+	//The value of a char variable:
 	public static final String VALUE_REGEX = "\'.\'";
+	//An assignment of a char variable
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"))?";
+	//A line with multiple assignments of char variables
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"));";
+	//The type
 	public static final String TYPE = "char";
+	//A decleration line of chars
 	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*\\s*;";
 	
 	/**
@@ -35,7 +40,7 @@ public class CharVariable extends Variable {
 	 * @throws Ex6Exceptions 
 	 */
 	public static CharVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
-		int count = line.length() - line.replace(",", "").length();
+		int count = line.length() - line.replace(",", "").length(); //The number of variables declared
 		count = count+1;
 		CharVariable[] vars = new CharVariable[count];
 		boolean fin = line.startsWith(FINAL);
@@ -65,10 +70,10 @@ public class CharVariable extends Variable {
 			start_index[0] = matcher.end();
 			String assignment = matcher.group();
 			matcher.reset(assignment);
-			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX)); //Find the name of the variable
 			matcher.find();
 			String name = matcher.group();
-			matcher.usePattern(Pattern.compile(VALUE_REGEX));
+			matcher.usePattern(Pattern.compile(VALUE_REGEX)); //Find the value of the variable
 			if(matcher.find()){
 				return new CharVariable(name, matcher.group().charAt(0), fin);
 			}
@@ -91,6 +96,7 @@ public class CharVariable extends Variable {
 			}
 			else{
 				if(fin){
+					//Uninitialized final varible
 					throw new UnInitializedFinal(name);
 				}
 				return new CharVariable(name);
@@ -145,7 +151,10 @@ public class CharVariable extends Variable {
 			return new CharVariable(name);
 		}
 	}
-	
+	/**
+	 * Set the variable as initialized
+	 * @param value - The value it's initizlied with
+	 */
 	public void setValue(Object value){
 		this.init = true;
 	}

@@ -11,7 +11,13 @@ import oop.ex6.variables.IntVariable;
 import oop.ex6.variables.SymbolTable;
 
 public class IfBlock extends CodeBlock {
+	/**
+	 * The block name
+	 */
 	public static final String BLOCK_NAME = "if";
+	/**
+	 * A regex expression of the start of an If block
+	 */
 	public static final String BLOCK_START = "\\s*"+BLOCK_NAME+"\\s*[(]"+COMPLEX_COND+"[)]\\s*[{]";
 	
 	/**
@@ -33,10 +39,11 @@ public class IfBlock extends CodeBlock {
 		Pattern p = Pattern.compile(BLOCK_START);
 		Matcher m = p.matcher(line);
 		if (!m.matches()){
+			//If not a legal if statement
 			return false;
 		}
 		String condition;
-		condition = line.substring(3);
+		condition = line.substring(3); //Delete "if "
 		String[] names = getVariableNamesFromCondition(condition);
 		if (!st.isInit(names)){
 			throw new UsedBeforeAssignment(names[0]);

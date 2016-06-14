@@ -6,14 +6,20 @@ import java.util.regex.Pattern;
 
 public class SymbolTable {
 
+	//Constants:
 	public static final String NOT_IN_TABLE_TYPE = "NULL";
 	public static final String TRUE = "true";
 	public static final String FALSE = "false";
+	//Hash map of all global variables
 	HashMap<String, Variable> globals;
+	//Hashmap of all local variables (at the moment)
 	HashMap<String, Variable> locals;
+	//Hashmap of all the functions
 	HashMap<String, Function> functions;
 	
-	
+	/**
+	 * a simple constructor that initializes everything with default values
+	 */
 	public SymbolTable(){
 		this.globals = new HashMap<String, Variable>();
 		this.locals = new HashMap<String, Variable>();
@@ -29,20 +35,28 @@ public class SymbolTable {
 	 */
 	public SymbolTable(SymbolTable st){
 		this.globals = new HashMap<String,Variable>();
+		//Copy all the global variables
 		for (String name:st.globals.keySet()){
 			Variable var = st.globals.get(name);
 			Variable temp_var = var.clone();
 			this.globals.put(name, temp_var);
 		}
+		//Copy the local variables
 		this.locals = new HashMap<String,Variable>();
 		for (String name:st.locals.keySet()){
 			Variable var = st.locals.get(name);
 			Variable temp_var = var.clone();
 			this.locals.put(name, temp_var);
 		}
+		//Copy the functions
 		this.functions = st.functions;
 	}
-
+	
+	/**
+	 * Returns the types of the variables given
+	 * @param names - An array of strings of the names of the variables to be checked
+	 * @return an array of strings consinsting with the types of the variables
+	 */
 	public String[] get_variables_type(String[] names){
 		String[] types = new String[names.length];
 		for (int i=0; i<types.length; i++){
@@ -51,10 +65,18 @@ public class SymbolTable {
 		return types;
 	}
 	
+	/**
+	 * Reset the local variables
+	 */
 	public void resetLocals(){
 		this.locals = new HashMap<String, Variable>();
 	}
 	
+	/**
+	 * Return the type of a variable by name
+	 * @param name - The name of the variable
+	 * @return the type of the variable
+	 */
 	public String get_variable_type(String name){
 		Variable var;
 		Pattern p = Pattern.compile(Variable.VALUES);
@@ -124,6 +146,11 @@ public class SymbolTable {
 		return true;
 	}
 	
+	/**
+	 * Add a list of variables to the global variables hashmap
+	 * @param variables - The variables to add
+	 * @return true if succesful false otherwise
+	 */
 	public boolean add_global_variables(Variable[] variables){
 		for(Variable variable : variables){
 			if(globals.containsKey(variable.getName())){
@@ -134,6 +161,11 @@ public class SymbolTable {
 		return true;
 	}
 	
+	/**
+	 * Add a list of variables to the local variables hashmap
+	 * @param variables - The variables to add
+	 * @return true if succesful false otherwise
+	 */
 	public boolean add_local_variables(Variable[] variables){
 		for(Variable variable : variables){
 			if(locals.containsKey(variable.getName())){
@@ -144,7 +176,11 @@ public class SymbolTable {
 		return true;
 	}
 	
-	
+	/**
+	 * Adds a function to the functions hashmap
+	 * @param func - The function to add
+	 * @return true if succesful false other wise
+	 */
 	public boolean addGlobalFunction(Function func){
 		if(this.functions.containsKey(func.getName())){
 			return false;

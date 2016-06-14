@@ -12,10 +12,15 @@ public class BooleanVariable extends Variable {
 	/**
 	 * Regex expressions for a boolean variable
 	 */
+	//A value of a boolean variable:
 	public static final String VALUE_REGEX = "(true|false|"+DoubleVariable.VALUE_REGEX+")";
+	//An assignment of a boolean variable
 	public static final String ASSIGNMENT = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX + "))?";
+	//An assignment of a few boolean variables
 	public static final String ASSIGNMENT_LINE = Variable.NAME_REGEX + "(\\s*=\\s*("+VALUE_REGEX+"|" + Variable.NAME_REGEX +"));";
+	//The type
 	public static final String TYPE = "boolean";
+	//A decleration of a boolean variable
 	public static final String DECLERATION = "(final \\s*)?" +  TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*\\s*;";
 
 	/**
@@ -37,8 +42,8 @@ public class BooleanVariable extends Variable {
 	 * @throws Ex6Exceptions - A general exception.
 	 */
 	public static BooleanVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
-		int count = line.length() - line.replace(",", "").length();
-		count = count+1;
+		int count = line.length() - line.replace(",", "").length(); 
+		count = count+1; //The number of variables in the line
 		BooleanVariable[] vars = new BooleanVariable[count];
 		boolean fin = line.startsWith(FINAL);
 		// This is an array only to pass the boolean by reference.
@@ -68,10 +73,10 @@ public class BooleanVariable extends Variable {
 			start_index[0] = matcher.end();
 			String assignment = matcher.group();
 			matcher.reset(assignment);
-			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX)); //Find the name
 			matcher.find();
 			String name = matcher.group();
-			matcher.usePattern(Pattern.compile(VALUE_REGEX));
+			matcher.usePattern(Pattern.compile(VALUE_REGEX)); //Find the value
 			if(matcher.find()){
 				return new BooleanVariable(name, Boolean.getBoolean(matcher.group()), fin);
 			}
@@ -151,6 +156,10 @@ public class BooleanVariable extends Variable {
 		}
 	}
 	
+	/**
+	 * Set the variable as initialized
+	 * @param value - The value it's initizlied with
+	 */
 	public void setValue(Object value){
 		this.init = true;
 	}

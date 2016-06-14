@@ -15,25 +15,32 @@ public class Variable {
 	protected boolean fin;
 	
 	//Regex expressions for variables declerations, assignments, values, and names.
+	//Final:
 	public static final String FINAL = "final";
+	//A name:
 	public static final String NAME_REGEX = "(((_)((\\w)+))|(([a-zA-Z])(\\w*)))";
+	//A variable decxleration
 	public static final String VARIABLE_DECLERATION = "("+BooleanVariable.DECLERATION+"|"+
 	CharVariable.DECLERATION+"|"+DoubleVariable.DECLERATION+"|"+IntVariable.DECLERATION+"|"+
 			StringVariable.DECLERATION+")";
+	//The types possible:
 	public static final String TYPES = "("+BooleanVariable.TYPE+"|"+CharVariable.TYPE+"|"+
 			DoubleVariable.TYPE+"|"+IntVariable.TYPE+"|"+StringVariable.TYPE+")";
+	//A line of an asignment
 	public static final String ASSIGNMENT_LINE = "("+BooleanVariable.ASSIGNMENT_LINE+"|"+
 			CharVariable.ASSIGNMENT_LINE+"|"+DoubleVariable.ASSIGNMENT_LINE+"|"
 			+IntVariable.ASSIGNMENT_LINE+"|"+StringVariable.ASSIGNMENT_LINE+")";
+	//The possible values
 	public static final String VALUES = "("+BooleanVariable.VALUE_REGEX+"|"+CharVariable.VALUE_REGEX+"|"+
 			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+StringVariable.VALUE_REGEX+")";
+	//The variable declaration part of method declaration
 	public static final String METHOD_DECLERATION = "("+TYPES+" "+NAME_REGEX+")";
 		public static final String VALUE_OR_NAME = "("+NAME_REGEX+"|"+VALUES+")";
 
 	/**
-	 * Check if a line is a variable decleration
+	 * Check if a line is a variable declaration
 	 * @param line - The line
-	 * @return true oif it's a variable decleration, false otherwise
+	 * @return true if it's a variable declaration, false otherwise
 	 */
 	public static boolean isVariableDec(String line){
 		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
@@ -44,7 +51,7 @@ public class Variable {
 	/**
 	 * Returns the variables from a line
 	 * @param line - The line
-	 * @param st - The dymbol table
+	 * @param st - The symbol table
 	 * @return - An array of variable containing the variables.
 	 * @throws Ex6Exceptions
 	 */
@@ -52,6 +59,7 @@ public class Variable {
 		String type;
 		String [] parts = line.split(" ");
 		if (parts[0].equals(FINAL) && parts.length>1){
+			//If final
 			type = parts[1];
 		}
 		else{
@@ -167,17 +175,27 @@ public class Variable {
 	public String getType(){
 		return "";
 	}
-	
+	/**
+	 * A constructor
+	 * @param name  -The name of the variable
+	 */
 	public Variable(String name){
 		this.name = name;
 		this.init = false;
 		this.fin = false;
 	}
 	
+	/**
+	 * Clone a variable
+	 */
 	public Variable clone(){
 		return new Variable(name);
 	}
 	
+	/**
+	 * Return the name of the variable
+	 * @return the name of the variable
+	 */
 	public String getName() {
 		return name;
 	}

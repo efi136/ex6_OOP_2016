@@ -7,9 +7,21 @@ import java.util.regex.Pattern;
 import oop.ex6.codeBlocks.CodeBlock;
 
 public class Function {
+	/**
+	 * The name of the function
+	 */
 	private String name;
+	/**
+	 * The number of parameters in the function
+	 */
 	private int num_of_parameters;
+	/**
+	 * The types of the paramters
+	 */
 	private Variable[] type_of_parameters;
+	/**
+	 * A regex expression of a method call
+	 */
 	public static final String METHOD_CALL = Variable.NAME_REGEX + "\\s*"
 			+ "[(]\\s*("+Variable.VALUE_OR_NAME+"\\s*(\\s*,\\s*"+Variable.VALUE_OR_NAME+"\\s*)*)?[)]\\s*;";
 	private static final int START_INDEX_FOR_NAME = 0;
@@ -57,12 +69,12 @@ public class Function {
 	 * @return the variable arguments in a method decleration.
 	 */
 	public static Variable[] getVariablesFromDec(String line){
-		int count = line.length() - line.replace(",", "").length();
+		int count = line.length() - line.replace(",", "").length(); //The number of variables in the declerations
 		if (line.indexOf(')') - line.indexOf('(') == 1){
 			// no variables.
 			return null;
 		}
-		String cut = line.substring(line.indexOf('(')+1,line.lastIndexOf(')'));
+		String cut = line.substring(line.indexOf('(')+1,line.lastIndexOf(')')); // The part between ()
 		String[] parts = cut.split(",");
 		Variable[] vars = new Variable[count+1];
 		Matcher m2;
@@ -71,15 +83,15 @@ public class Function {
 		// make sure that it starts from the variable names and not the function name.
 		for(int i = 0; i <= count; i++){
 			String[] dec_parts = parts[i].trim().split(" ");
-			boolean fin = dec_parts.length == 3;
+			boolean fin = dec_parts.length == 3; //Is final or not
 			if(fin){
 				m2.find();
 			}
 			m2.find();
-			type = m2.group();
+			type = m2.group(); //Find the type of the variable
 			m2.find();
-			name = m2.group();
-			switch(type){
+			name = m2.group(); //Find the name of the variable
+			switch(type){ //Create the variable instances
 			case BooleanVariable.TYPE:
 				vars[i] = new BooleanVariable(name, true, fin);
 				break;
@@ -113,13 +125,14 @@ public class Function {
 		Pattern p = Pattern.compile(METHOD_CALL);
 		Matcher m = p.matcher(line);
 		if (!m.matches()){
+			//If doens't match a method call
 			return false;
 		}
-		String name = get_name(line);
+		String name = get_name(line); // The name of the function
 		if (!name.equals(this.name)){
 			return false;
 		}
-		String[] names = CodeBlock.getVariableNameFromFuncCall(line);
+		String[] names = CodeBlock.getVariableNameFromFuncCall(line); //The name of the variables called
 		// in case it has no parameters.
 		if (names == null){
 			return this.num_of_parameters == 0;
@@ -128,7 +141,7 @@ public class Function {
 		if (names.length!=this.num_of_parameters){
 			return false;
 		}
-		// check if the types are olay.
+		// check if the types are okay.
 		for (int i=0; i<types.length; i++){
 			if (!this.type_of_parameters[i].getType().equals(types[i])){
 				if (!(this.type_of_parameters[i].getType().equals(DoubleVariable.TYPE) && types[i].equals(IntVariable.TYPE))){

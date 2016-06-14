@@ -66,10 +66,10 @@ public class StringVariable extends Variable {
 			start_index[0] = matcher.end();
 			String assignment = matcher.group();
 			matcher.reset(assignment);
-			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX));
+			matcher.usePattern(Pattern.compile(Variable.NAME_REGEX)); //The name of the variable
 			matcher.find();
 			String name = matcher.group();
-			matcher.usePattern(Pattern.compile(VALUE_REGEX));
+			matcher.usePattern(Pattern.compile(VALUE_REGEX)); //Find the value of the variable
 			if(matcher.find()){
 				return new StringVariable(name, matcher.group(), fin);
 			}
@@ -92,6 +92,7 @@ public class StringVariable extends Variable {
 			}
 			else{
 				if(fin){
+					//Uninitialized final varible
 					throw new UnInitializedFinal(name);
 				}
 				return new StringVariable(name);
@@ -146,7 +147,10 @@ public class StringVariable extends Variable {
 			return new StringVariable(name);
 		}
 	}
-	
+	/**
+	 * Set the variable as initialized
+	 * @param value - The value it's initizlied with
+	 */
 	public void setValue(Object value){
 		this.init = true;
 	}

@@ -26,26 +26,32 @@ public class GeneralBlock {
 	private void processGlobalVars(FileParser parser) throws Ex6Exceptions{
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
-			String command = parser.getCommand();
+			String command = parser.getCommand(); //Next line
 			if(command.contains("{")){
+				//If entered a new scope
 				scopeCounter++;
 			}
 			else if(command.contains("}")){
+				//if exited a scope
 				scopeCounter--;
 			}
 			else if(scopeCounter == 0){
-				if(Variable.isVariableDec(command)){
+				//if outside of all scopes
+				if(Variable.isVariableDec(command)){ //Check if a legal variable decleratoin
 					if(!this.st.add_global_variables(Variable.getVariablesFromDec(command, st))){
 						throw new DuplicateVariable(parser.getIndex());
 					}
 				}
 				else if(Variable.isAssignmentLine(command)){
+					//check if a legal variable assignment
 					Variable.processAssignmentLine(command, st);
 				}
 				else if(MethodBlock.isLineMethodDec(command)){
+					//Check if a legal method declerations
 					// do nothing.
 				}
 				else{
+					//If none of the possible cases
 					throw new Ex6Exceptions(parser.getIndex());
 				}
 			}
@@ -61,12 +67,14 @@ public class GeneralBlock {
 	private void proccessMethodDeclerations(FileParser parser) throws Ex6Exceptions{
 		int scopeCounter = 0;
 		while(parser.hasMoreCommands()){
-			String command = parser.getCommand();
+			String command = parser.getCommand(); //Next command
 			parser.advance();
 			if(command.contains("{")){
 				if(scopeCounter == 0){
 					if(MethodBlock.isLineMethodDec(command)){
+						//Check if the line is a method decleration
 						if(!this.st.addGlobalFunction(Function.getFunctionFromDec(command))){
+							//If there's an error with the variables in the function's decleration
 							throw new DuplicateVariable(parser.getIndex());
 						}
 					}
@@ -78,6 +86,7 @@ public class GeneralBlock {
 			}
 			else if(scopeCounter == 0){
 				if(MethodBlock.isLineMethodDec(command)){
+					//Check if the line is a method decleration
 					if(!this.st.addGlobalFunction(Function.getFunctionFromDec(command))){
 						throw new DuplicateVariable(parser.getIndex());
 					}
@@ -123,6 +132,7 @@ public class GeneralBlock {
 	 */
 	public boolean compile(FileParser parser){
 		try {
+			//Process global variables
 			this.processGlobalVars(parser);
 		} catch (Ex6Exceptions e1) {
 			e1.printErrorMsg();
@@ -130,6 +140,7 @@ public class GeneralBlock {
 		}
 		parser.reset();
 		try {
+			//Process method declerations
 			this.proccessMethodDeclerations(parser);
 		} catch (Ex6Exceptions e1) {
 			e1.printErrorMsg();
@@ -137,6 +148,7 @@ public class GeneralBlock {
 		}
 		parser.reset();
 		try {
+			//Process blocks (if an while)
 			this.proccessBlock(parser);
 		} catch (Ex6Exceptions e) {
 			e.printErrorMsg();
