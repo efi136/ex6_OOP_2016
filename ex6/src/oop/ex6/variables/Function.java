@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import oop.ex6.codeBlocks.CodeBlock;
+
 public class Function {
 	private String name;
 	private int num_of_parameters;
@@ -98,26 +100,7 @@ public class Function {
 		return vars;
 	}
 	
-	/**
-	 * Returns the name of the variables in a function call
-	 * @param line - the line with the function call
-	 * @return the name of the variables in a function call
-	 */
-	public static String[] getVariableNameFromFuncCall(String line){
-		int count = line.length() - line.replace(",", "").length();
-		if (line.indexOf(')') - line.indexOf('(') == 1){
-			// no variables.
-			return null;
-		}
-		String[] names = new String[count+1];
-		String vars = line.substring(line.indexOf('(')+1,line.lastIndexOf(')'));
-		names = vars.split(",");
-		// make sure that it starts from the variable names and not the function name.
-		for (int i=0; i<=count; i++){
-			names[i] = names[i].trim();
-		}
-		return names;
-	}
+
 	
 	
 	/**
@@ -136,7 +119,7 @@ public class Function {
 		if (!name.equals(this.name)){
 			return false;
 		}
-		String[] names = getVariableNameFromFuncCall(line);
+		String[] names = CodeBlock.getVariableNameFromFuncCall(line);
 		// in case it has no parameters.
 		if (names == null){
 			return this.num_of_parameters == 0;

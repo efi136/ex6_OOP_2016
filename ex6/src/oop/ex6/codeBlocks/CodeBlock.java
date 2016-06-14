@@ -22,13 +22,34 @@ public class CodeBlock {
 	protected SymbolTable st;
 
 	/**
+	 * Returns the name of the variables in a function call
+	 * @param line - the line with the function call
+	 * @return the name of the variables in a function call
+	 */
+	public static String[] getVariableNameFromFuncCall(String line){
+		int count = line.length() - line.replace(",", "").length();
+		if (line.indexOf(')') - line.indexOf('(') == 1){
+			// no variables.
+			return null;
+		}
+		String[] names = new String[count+1];
+		String vars = line.substring(line.indexOf('(')+1,line.lastIndexOf(')'));
+		names = vars.split(",");
+		// make sure that it starts from the variable names and not the function name.
+		for (int i=0; i<=count; i++){
+			names[i] = names[i].trim();
+		}
+		return names;
+	}
+	
+	/**
 	 * This function gets a condition string and returns all of the variables\from this condition.
 	 * @param condition - the string of the condition.
 	 * @return
 	 */
 	protected static String[] getVariableNamesFromCondition(String condition){
 		String doctored_line = condition.replaceAll(CONDITION_VARIABLE, ",");
-		return Function.getVariableNameFromFuncCall(doctored_line);
+		return getVariableNameFromFuncCall(doctored_line);
 	}
 	
 	/**
