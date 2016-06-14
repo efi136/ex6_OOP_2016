@@ -28,7 +28,12 @@ public class SymbolTable {
 	 * @param st - the SymbolTable to copy.
 	 */
 	public SymbolTable(SymbolTable st){
-		this.globals = st.globals;
+		this.globals = new HashMap<String,Variable>();
+		for (String name:st.globals.keySet()){
+			Variable var = st.globals.get(name);
+			Variable temp_var = var.clone();
+			this.globals.put(name, temp_var);
+		}
 		this.locals = st.locals;
 		this.functions = st.functions;
 	}
@@ -51,19 +56,19 @@ public class SymbolTable {
 		Matcher m = p.matcher(name);
 		if (m.matches()){
 			// check order: Int, Double, Boolean, Char, String
-			if (Pattern.matches(name, IntVariable.VALUE_REGEX)){
+			if (Pattern.matches(IntVariable.VALUE_REGEX, name)){
 				return IntVariable.TYPE;
 			}
-			else if (Pattern.matches(name, DoubleVariable.VALUE_REGEX)){
+			else if (Pattern.matches(DoubleVariable.VALUE_REGEX, name)){
 				return DoubleVariable.TYPE;
 			}
-			else if (Pattern.matches(name, BooleanVariable.VALUE_REGEX)){
+			else if (Pattern.matches(BooleanVariable.VALUE_REGEX, name)){
 				return BooleanVariable.TYPE;
 			}
-			else if (Pattern.matches(name, CharVariable.VALUE_REGEX)){
+			else if (Pattern.matches(CharVariable.VALUE_REGEX, name)){
 				return CharVariable.TYPE;
 			}
-			else if (Pattern.matches(name, StringVariable.VALUE_REGEX)){
+			else if (Pattern.matches(StringVariable.VALUE_REGEX, name)){
 				return StringVariable.TYPE;
 			}
 		}

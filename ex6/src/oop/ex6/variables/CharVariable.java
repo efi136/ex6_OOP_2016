@@ -10,7 +10,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class CharVariable extends Variable {
 	@SuppressWarnings("unused")
-	private char value;
 	/**
 	 * Regex expressions for a char variable
 	 */
@@ -129,14 +128,26 @@ public class CharVariable extends Variable {
 	 * @param value - The value of this variable
 	 * @param fin - Whether the variable is final or not
 	 */
-	public CharVariable(String name, char value, boolean fin){
+	public CharVariable(String name, Object value, boolean fin){
 		super(name);
 		this.setValue(value);
 		this.fin = fin;
 	}
 	
-	public void setValue(char value){
+
+	/**
+	 * This method clones the variable.
+	 */
+	public Variable clone(){
+		if (this.init){
+			return new CharVariable(name,null,fin);
+		}
+		else{
+			return new CharVariable(name);
+		}
+	}
+	
+	public void setValue(Object value){
 		this.init = true;
-		this.value = value;
 	}
 }

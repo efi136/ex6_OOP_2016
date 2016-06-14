@@ -111,6 +111,7 @@ public class Variable {
 				}
 			}
 			var.init = true;
+			return;
 		}
 		// check for globals:
 		// check if variable is in st.
@@ -170,6 +171,10 @@ public class Variable {
 		this.name = name;
 		this.init = false;
 		this.fin = false;
+	}
+	
+	public Variable clone(){
+		return new Variable(name);
 	}
 	
 	public String getName() {

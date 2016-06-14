@@ -10,7 +10,6 @@ import oop.ex6.Exceptions.UsedBeforeAssignment;
 
 public class DoubleVariable extends Variable {
 	@SuppressWarnings("unused")
-	private double value;
 	/**
 	 * Regex expressions for a double variable
 	 */
@@ -129,15 +128,26 @@ public class DoubleVariable extends Variable {
 	 * @param value - The value of this variable
 	 * @param fin - Whether the variable is final or not
 	 */
-	public DoubleVariable(String name, double value, boolean fin){
+	public DoubleVariable(String name, Object value, boolean fin){
 		super(name);
 		this.setValue(value);
 		this.fin = fin;
 	}
 	
-	public void setValue(double value){
+	/**
+	 * This method clones the variable.
+	 */
+	public Variable clone(){
+		if (this.init){
+			return new DoubleVariable(name,null,fin);
+		}
+		else{
+			return new DoubleVariable(name);
+		}
+	}
+	
+	public void setValue(Object value){
 		this.init = true;
-		this.value = value;
 	}
 	
 }
