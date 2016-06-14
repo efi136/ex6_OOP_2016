@@ -148,6 +148,7 @@ public class Variable {
 		}
 	}
 	
+	
 	public String getType(){
 		return "";
 	}

@@ -60,7 +60,7 @@ public class BooleanVariable extends Variable {
 	 * @param start_index - The index in the line where the variable starts.
 	 * @param fin - Is the variable final or not
 	 * @param st - The symbol table.
-	 * @return a variable.
+	 * @return The variable declared in this line right after start index.
 	 * @throws Ex6Exceptions - General exception.
 	 */
 	public static BooleanVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{

@@ -18,12 +18,22 @@ public class StringVariable extends Variable {
 	public static final String TYPE = "String";
 	public static final String DECLERATION = "(final \\s*)?" + TYPE+"\\s*"+ASSIGNMENT+"(\\s*,\\s*"+ASSIGNMENT+")*;";
 	
+	/**
+	 * Checks if a line is a string variable decleration
+	 * @param line - The line to check
+	 * @return - True if it's a string variable decleration and false otherwise
+	 */
 	public static boolean isStringVariableDec(String line){
 		Pattern p = Pattern.compile(DECLERATION);
 		Matcher m = p.matcher(line);
 		return m.matches();
 	}
-	
+	/**
+	 * Returns all the variables declared in this line.
+	 * @param line - the line to be parsed.
+	 * @return - all the variables declared in this line.
+	 * @throws Ex6Exceptions 
+	 */
 	public static StringVariable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
 		int count = line.length() - line.replace(",", "").length();
 		count = count+1;
@@ -39,7 +49,15 @@ public class StringVariable extends Variable {
 		}
 		return vars;
 	}
-	
+	/**
+	 * Returns the variable declared in a part of a line.
+	 * @param line - The line.
+	 * @param start_index - The index in the line where the variable starts.
+	 * @param fin - Is the variable final or not
+	 * @param st - The symbol table.
+	 * @return The variable declared in this line right after start index.
+	 * @throws Ex6Exceptions - General exception.
+	 */
 	public static StringVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
 		Matcher matcher = pattern.matcher(line);

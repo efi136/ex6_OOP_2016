@@ -41,13 +41,13 @@ public class IntVariable extends Variable {
 	}
 	
 	/**
-	 * 
-	 * @param line - the line to get the variable from.
-	 * @param start_index - the starting index of the line from which to start parsing.
-	 * @param fin - if the variable should be final or not.
-	 * @return The variable declared in this line starting from start_index.
-	 * int name =4, name1=2
-	 * @throws Ex6Exceptions 
+	 * Returns the variable declared in a part of a line.
+	 * @param line - The line.
+	 * @param start_index - The index in the line where the variable starts.
+	 * @param fin - Is the variable final or not
+	 * @param st - The symbol table.
+	 * @return The variable declared in this line right after start index.
+	 * @throws Ex6Exceptions - General exception.
 	 */
 	public static IntVariable getVariableFromLinePart(String line, int[] start_index, boolean fin, SymbolTable st) throws Ex6Exceptions{
 		Pattern pattern = Pattern.compile(ASSIGNMENT);
@@ -94,7 +94,11 @@ public class IntVariable extends Variable {
 	public String getType(){
 		return TYPE;
 	}
-	
+	/**
+	 * Checks if a line is a int variable decleration
+	 * @param line - The line to check
+	 * @return - True if it's a int variable decleration and false otherwise
+	 */
 	public static boolean isIntVariableDec(String line){
 		Pattern p = Pattern.compile(DECLERATION);
 		Matcher m = p.matcher(line);
