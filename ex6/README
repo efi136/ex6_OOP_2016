@@ -62,11 +62,22 @@ Exceptions -
 	The exceptions are pretty straight forward. The all inherit from Ex6Exception.
 	Each one is for a specific type of error.
 	They all have a method for printing the error to the screen using System.err.
-Symbols- 
+Symbols - 
+	This package deals with all of the Variables.
+	We used a symbol table to hold all of the known symbols (functions, variables, globals)
+	for each block.
+	The variables deal with all of the operation that are related to them like devlerations and
+	assignments.
+CodeBlocks -
+	Here we have the classes that deal with the more high level operations.
+	If blocks, while blocks, methods. These can contain several lines.
+	Each code block is a class that has its own SymbolTable. Every codeBlock
+	has a compile method that handles all of the code for this block.
+	When facing such block, calling the compile methods deals with the block like 
+	it was a one_liner and after it you can proceed to the next block.
+	This design resembles recursive compilation.
 	
-
-
-
+A more detailed explenation for each function can be found in the javadoc.
 
 =========================
 = Implementation Issues =
