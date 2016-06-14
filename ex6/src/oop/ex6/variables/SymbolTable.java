@@ -34,7 +34,12 @@ public class SymbolTable {
 			Variable temp_var = var.clone();
 			this.globals.put(name, temp_var);
 		}
-		this.locals = st.locals;
+		this.locals = new HashMap<String,Variable>();
+		for (String name:st.locals.keySet()){
+			Variable var = st.locals.get(name);
+			Variable temp_var = var.clone();
+			this.locals.put(name, temp_var);
+		}
 		this.functions = st.functions;
 	}
 
