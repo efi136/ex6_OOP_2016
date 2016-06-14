@@ -1,8 +1,5 @@
 package oop.ex6.codeBlocks;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import oop.ex6.Exceptions.DuplicateVariable;
 import oop.ex6.Exceptions.Ex6Exceptions;
 import oop.ex6.Exceptions.UnExpectedEndOfFile;
@@ -30,18 +27,8 @@ public class CodeBlock {
 	 * @return
 	 */
 	protected static String[] getVariableNamesFromCondition(String condition){
-		String minimized = condition.substring(condition.indexOf('(')+1, condition.indexOf(')'));
-		Pattern p = Pattern.compile(CONDITION_VARIABLE);
-		Matcher m = p.matcher(minimized);
-		int amount = (minimized.length() - minimized.replace("||", "").replace("&&", "").length())/2 + 1 ;
-		String[] variables = new String[amount];
-		for (int i = 0; i < amount-1; i++){
-			m.find();
-			variables[i] = minimized.substring(0, m.start()).replace(" ", "");
-			minimized = minimized.substring(m.end());
-		}
-		variables[amount-1] = minimized.replace(" ", "");
-		return variables;
+		String doctored_line = condition.replaceAll(CONDITION_VARIABLE, ",");
+		return Function.getVariableNameFromFuncCall(doctored_line);
 	}
 	
 	/**
