@@ -14,6 +14,7 @@ public class Variable {
 	protected boolean init;
 	protected boolean fin;
 	
+	//Regex expressions for variables declerations, assignments, values, and names.
 	public static final String FINAL = "final";
 	public static final String NAME_REGEX = "(((_)((\\w)+))|(([a-zA-Z])(\\w*)))";
 	public static final String VARIABLE_DECLERATION = "("+BooleanVariable.DECLERATION+"|"+
@@ -28,12 +29,24 @@ public class Variable {
 			DoubleVariable.VALUE_REGEX+"|"+IntVariable.VALUE_REGEX+"|"+StringVariable.VALUE_REGEX+")";
 	public static final String METHOD_DECLERATION = "("+TYPES+" "+NAME_REGEX+")";
 	
+	/**
+	 * Check if a line is a variable decleration
+	 * @param line - The line
+	 * @return true oif it's a variable decleration, false otherwise
+	 */
 	public static boolean isVariableDec(String line){
 		Pattern p = Pattern.compile(VARIABLE_DECLERATION);
 		Matcher m = p.matcher(line);
 		return m.matches();
 	}
 	
+	/**
+	 * Returns the variables from a line
+	 * @param line - The line
+	 * @param st - The dymbol table
+	 * @return - An array of variable containing the variables.
+	 * @throws Ex6Exceptions
+	 */
 	public static Variable[] getVariablesFromDec(String line, SymbolTable st) throws Ex6Exceptions{
 		String type;
 		String [] parts = line.split(" ");
